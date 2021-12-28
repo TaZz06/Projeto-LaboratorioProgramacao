@@ -23,11 +23,10 @@ Route::get('/', function () {
 // Auth::routes();
 Auth::routes(['verify' => true]);
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [HomeController::class, 'index'])->name('home');
+
 Route::get('admin/home', [HomeController::class, 'adminHome'])->name('admin.home')->middleware('is_admin');
 
-
 Route::post('save', [PhotoController::class, 'store'])->name('upload.picture')->middleware('is_admin');
-
 
 Route::get('generate-pdf', [PDFController::class, 'generatePDF']);
