@@ -21,7 +21,9 @@ class CreateCandidato extends Migration
             $table->string('ProfessionalExperience');
             $table->string('Skills');
             $table->string('ApplicationHistory');
+            $table->foreign('ApplicationHistory')->references('id')->on('anuncio');
             $table->string('FavoriteAds');
+            $table->foreign('FavoriteAds')->references('id')->on('anuncio');
             $table->timestamps();
         });
     }
