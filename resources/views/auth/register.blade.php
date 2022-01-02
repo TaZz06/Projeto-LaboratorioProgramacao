@@ -98,47 +98,7 @@
                             <label class="form-check-label" for="flexRadioDefault2">Empresa</label>
                         </div>
                         <br><br>
-                            
-                      <!--  <div id="flexRadioDefault1" class="d-none">
-                            <?php
-                                $parameters = array('Profissional Area', 'Schooling', 'Professional Experience', 'Skills');
-                                $names = array('ProfissionalArea', 'Schooling', 'ProfessionalExperience', 'Skills');
-                            ?>
 
-                            @foreach (array_combine($parameters, $names) as $parameter => $name)
-                                <div class="row mb-3">
-                                    <label for="{{$parameter}}" class="col-md-4 col-form-label text-md-right">{{$parameter}}</label>
-
-                                    <div class="col-md-6">
-                                        <input id="{{$parameter}}" type="text" class="form-control @error($parameter)
-                                        is-invalid @enderror" name="{{$name}}" value="{{ old($parameter) }}" required autocomplete="{{$parameter}}" autofocus>
-
-                                        @error('{{$parameter}}')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
-                                </div>
-                            @endforeach
-                        </div>
-                        <div id="flexRadioDefault2" class="d-none">
-                            <div class="row mb-3">
-                                <label for="nif" class="col-md-4 col-form-label text-md-right">{{ __('NIF') }}</label>
-                            
-                                <div class="col-md-6">
-                                    <input id="nif" type="text" class="form-control @error('nif') is-invalid @enderror" name="nif" value="{{ old('nif') }}" required autocomplete="nif">
-                            
-                                    @error('nif')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-                            </div>
-                            @include('partials.upload')
-                        </div>
--->
                         <div class="row mb-0">
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary">

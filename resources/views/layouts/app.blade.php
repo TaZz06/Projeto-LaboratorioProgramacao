@@ -58,16 +58,24 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="{{ route('profile') }}"
+                                       onclick="event.preventDefault();
+                                                     document.getElementById('profile-form').submit();">
+                                        {{ __('Profile') }}
+                                    </a>
+                                    <form id="profile-form" action="{{ route('profile') }}" method="POST" class="d-none">
+                                        @csrf
+                                    </form>
+
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
                                     </a>
-
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                         @csrf
                                     </form>
-                                </div>
+                                </div>         
                             </li>
                         @endguest
                     </ul>
@@ -80,23 +88,4 @@
         </main>
     </div>
 </body>
-<!--<script>
-    document.getElementById('radiochoice1').onclick = function () {
-        document.getElementById('flexRadioDefault1').classList.remove('d-none');
-        document.getElementById('flexRadioDefault2').classList.add('d-none');
-
-        document.getElementById('nif').value = '';
-    }
-
-    document.getElementById('radiochoice2').onclick = function () {
-        document.getElementById('flexRadioDefault2').classList.remove('d-none');
-        document.getElementById('flexRadioDefault1').classList.add('d-none');
-
-        document.getElementById('Profissional Area').value = '';
-        document.getElementById('Schooling').value = '';
-        document.getElementById('Professional Experience').value = '';
-        document.getElementById('Skills').value = '';
-    }
-</script>-->
-
 </html>

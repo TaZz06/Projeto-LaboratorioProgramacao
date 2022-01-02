@@ -8,7 +8,7 @@
                 <div class="card-header">{{ __('Register Empresa') }}</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('register_empresa') }}">
+                    <form method="POST" action="{{ route('register_empresa') }}" enctype="multipart/form-data">
                         @csrf
 
                         <div id="flexRadioDefault2">
@@ -24,8 +24,16 @@
                                         </span>
                                     @enderror
                                 </div>
+                            </div>  
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <input type="file" name="image" placeholder="Choose image" id="image">
+                                    @error('image')
+                                        <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
+                                    @enderror
+                                </div>
                             </div>
-                            @include('partials.upload')
+                            
                         </div>
                          
                         <div class="row mb-0">

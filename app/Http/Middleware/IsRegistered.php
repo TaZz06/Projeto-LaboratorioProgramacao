@@ -24,6 +24,6 @@ class IsRegistered
                 return response()->view('empresa');
             }
         }
-        return view('home');
+        return response()->view('home');
     }
 }
