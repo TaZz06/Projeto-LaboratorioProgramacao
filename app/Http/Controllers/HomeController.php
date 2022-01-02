@@ -23,12 +23,14 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $pictures = Photo::all();
+        return view('home', compact('pictures'));
     }
 
 
     public function adminHome()
     {
-        return view('adminHome');
+        $pictures = Photo::all();
+        return view('adminHome', compact('pictures'));
     }
 }

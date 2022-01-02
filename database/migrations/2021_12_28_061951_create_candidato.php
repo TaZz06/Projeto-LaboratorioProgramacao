@@ -13,17 +13,16 @@ class CreateCandidato extends Migration
      */
     public function up()
     {
-        Schema::create('candidato', function (Blueprint $table) {
-            $table->integer('user_id');
-            $table->foreign('user_id')->references('id')->on('users');
+        Schema::create('candidatos', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
             $table->string('ProfissionalArea');
             $table->string('Schooling');
             $table->string('ProfessionalExperience');
             $table->string('Skills');
-            $table->string('ApplicationHistory');
-            $table->foreign('ApplicationHistory')->references('id')->on('anuncio');
-            $table->string('FavoriteAds');
-            $table->foreign('FavoriteAds')->references('id')->on('anuncio');
+            $table->integer('ApplicationHistory')->nullable();
+            $table->integer('FavoriteAds')->nullable();
             $table->timestamps();
         });
     }
@@ -35,6 +34,6 @@ class CreateCandidato extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('candidato');
+        Schema::dropIfExists('candidatos');
     }
 }

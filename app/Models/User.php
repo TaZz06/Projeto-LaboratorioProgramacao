@@ -19,9 +19,14 @@ class User extends Authenticatable implements MustVerifyEmail
      */
     protected $fillable = [
         'name',
+        'address',
         'email',
+        'email_verified_at',
+        'contact',
         'password',
         'is_admin',
+        'type_user',
+        'registered',
     ];
 
     /**
@@ -42,4 +47,9 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function setRegistered($value)
+    {
+        $this->attributes['registered'] = $value;
+    }
 }

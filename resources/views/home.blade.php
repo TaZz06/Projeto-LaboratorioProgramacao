@@ -18,6 +18,7 @@
                         </br></br>
                     @endif
                 </div>
+
                 <div class="card-body">
                     <a href="generate-pdf">PDF</a>
                 </div>

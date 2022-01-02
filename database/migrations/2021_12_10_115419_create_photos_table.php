@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateEmpresa extends Migration
+class CreatePhotosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,13 @@ class CreateEmpresa extends Migration
      */
     public function up()
     {
-        Schema::create('empresas', function (Blueprint $table) {
+        Schema::create('photos', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->string('path');
             $table->unsignedBigInteger('user_id');
-            $table->integer('nif')->unique();
-            $table->timestamps(); 
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->timestamps();
         });
     }
 
@@ -29,6 +30,6 @@ class CreateEmpresa extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('empresas');
+        Schema::dropIfExists('photos');
     }
 }

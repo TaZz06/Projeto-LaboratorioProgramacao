@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Photo;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PhotoController extends Controller
 {
@@ -40,10 +41,10 @@ class PhotoController extends Controller
 
         $name = $request->file('image')->getClientOriginalName();
         $request->file('image')->store('public/images');
-
         $picture = new Photo;
         $picture->name = $name;
         $picture->path = $request->file('image')->hashName();
+        $picture->user_id = Auth::id();
         $picture->save();
         return redirect()->back()->with('status', 'Image Has been uploaded');
     }

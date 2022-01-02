@@ -13,14 +13,13 @@ class CreateAnuncio extends Migration
      */
     public function up()
     {
-        Schema::create('anuncio', function (Blueprint $table) {
+        Schema::create('anuncios', function (Blueprint $table) {
             $table->id();
             $table->string('Workspace');
             $table->string('JobDescription');
             $table->string('DesiredSkills');
             $table->string('Conditions');
             $table->integer('Candidates');
-            $table->foreign('Candidates')->references('id')->on('users');
             $table->string('Type');
             $table->timestamps();
         });
@@ -33,6 +32,6 @@ class CreateAnuncio extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('anuncio');
+        Schema::dropIfExists('anuncios');
     }
 }

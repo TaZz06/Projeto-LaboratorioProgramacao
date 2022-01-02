@@ -80,4 +80,23 @@
         </main>
     </div>
 </body>
+<!--<script>
+    document.getElementById('radiochoice1').onclick = function () {
+        document.getElementById('flexRadioDefault1').classList.remove('d-none');
+        document.getElementById('flexRadioDefault2').classList.add('d-none');
+
+        document.getElementById('nif').value = '';
+    }
+
+    document.getElementById('radiochoice2').onclick = function () {
+        document.getElementById('flexRadioDefault2').classList.remove('d-none');
+        document.getElementById('flexRadioDefault1').classList.add('d-none');
+
+        document.getElementById('Profissional Area').value = '';
+        document.getElementById('Schooling').value = '';
+        document.getElementById('Professional Experience').value = '';
+        document.getElementById('Skills').value = '';
+    }
+</script>-->
+
 </html>

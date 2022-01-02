@@ -3,11 +3,17 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Candidato;
+use App\Models\Empresa;
+use App\Models\Photo;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\View;
 
 class RegisterController extends Controller
 {
@@ -36,6 +42,7 @@ class RegisterController extends Controller
      *
      * @return void
      */
+
     public function __construct()
     {
         $this->middleware('guest');
@@ -51,8 +58,11 @@ class RegisterController extends Controller
     {
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
+            'address' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'contact'=> ['required', 'string', 'min:9'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'flexRadioDefault' => ['required'],
         ]);
     }
 
@@ -64,10 +74,17 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+       $newUser = User::create([
             'name' => $data['name'],
+            'address' => $data['address'],
             'email' => $data['email'],
+            'email_verified_at' => now(),
+            'contact'=> $data['contact'],
             'password' => Hash::make($data['password']),
+            'type_user' => $data['flexRadioDefault'],
+            'registered' => false,
         ]);
+        return $newUser;
     }
+    
 }
