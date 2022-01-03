@@ -24,9 +24,9 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $anuncios = Anuncio::all()->paginate(7);
+        $anuncios = Anuncio::all();
         
-        return view('home', compact(['anuncios']));
+        return view('home')->with(compact('anuncios'));
     }
 
 

@@ -14,4 +14,16 @@ class Empresa extends Model
         'nif',
         'logo_id',
     ];
+
+    public static function getEmpresaId($user_id)
+    {
+        $empresa = Empresa::where('user_id', $user_id)->first();
+        return $empresa->id;
+    }
+
+    public static function getEmpresaById($empresa_id)
+    {
+        $empresa = Empresa::where('id', $empresa_id)->first();
+        return $empresa;
+    }
 }

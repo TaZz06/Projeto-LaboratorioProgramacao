@@ -19,11 +19,12 @@ class CreateAnuncio extends Migration
             $table->string('workspace');
             $table->string('job_description');
             $table->string('desired_skills');
-            $table->float('salary');
+            $table->float('salary')->nullable();
             $table->string('type'); 
-            $table->integer('candidates');
+            $table->integer('candidates')->nullable();
+            $table->string('address');
             $table->timestamps();
-            $table->foreign('empresa_id')->references('id')->on('empresas')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('empresa_id')->references('id')->on('empresas')->onDelete('cascade');
         });
     }
 

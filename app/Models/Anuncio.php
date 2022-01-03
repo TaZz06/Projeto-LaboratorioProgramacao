@@ -8,11 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Anuncio extends Model
 {
     use HasFactory;
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
+    
     protected $fillable = [
         'empresa_id',
         'workspace',
@@ -20,6 +16,7 @@ class Anuncio extends Model
         'desired_skills',
         'salary',
         'type',
+        'address',
         'candidates',
     ];
 }

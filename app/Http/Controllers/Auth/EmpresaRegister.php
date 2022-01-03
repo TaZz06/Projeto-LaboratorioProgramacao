@@ -18,8 +18,6 @@ class EmpresaRegister extends Controller
             'image' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048',
         ]);
         
-        
-
         $name = $request->file('image')->getClientOriginalName();
         $request->file('image')->store('public/images');
 

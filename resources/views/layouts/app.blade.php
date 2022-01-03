@@ -67,6 +67,17 @@
                                         @csrf
                                     </form>
 
+                                  @if(Auth::user()->type_user == 'E') 
+                                    <a class="dropdown-item" href="{{ route('insert_anuncio_form') }}"
+                                       onclick="event.preventDefault();
+                                                     document.getElementById('insertAnuncio-form').submit();">
+                                        {{ __('Insert Ads') }}
+                                    </a>
+                                    <form id="insertAnuncio-form" action="{{ route('insert_anuncio_form') }}" method="POST" class="d-none">
+                                        @csrf
+                                    </form>
+                                   @endif
+
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">

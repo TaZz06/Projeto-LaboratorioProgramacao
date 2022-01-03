@@ -11,7 +11,14 @@
                     <form method="POST" action="{{ route('insert_anuncio') }}">
                         @csrf
                         <div class="row mb-3">
-                            <label for="workspace" class="col-md-4 col-form-label text-md-right">{{ __('Função') }}</label>
+                            <select name="type">
+                                <option value="E">Estágio</option>
+                                <option value="ER">Estágio Remunerado</option>
+                                <option value="T">Trabalho</option>
+                            </select>
+                        </div>
+                        <div class="row mb-3">
+                            <label for="workspace" class="col-md-4 col-form-label text-md-right">{{ __('Workspace') }}</label>
 
                             <div class="col-md-6">
                                 <input id="workspace" type="text" class="form-control @error('workspace') is-invalid @enderror" name="workspace" value="{{ old('workspace') }}" required autocomplete="workspace" autofocus>
@@ -39,12 +46,26 @@
                         </div>
 
                         <div class="row mb-3">
-                            <label for="skills" class="col-md-4 col-form-label text-md-right">{{ __('Skills needed') }}</label>
+                            <label for="desired_skills" class="col-md-4 col-form-label text-md-right">{{ __('Skills needed') }}</label>
 
                             <div class="col-md-6">
-                                <input id="skills" type="skills" class="form-control @error('skills') is-invalid @enderror" name="skills" value="{{ old('skills') }}" required autocomplete="skills">
+                                <input id="desired_skills" type="desired_skills" class="form-control @error('desired_skills') is-invalid @enderror" name="desired_skills" value="{{ old('desired_skills') }}" required autocomplete="skills">
 
                                 @error('skills')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label for="address" class="col-md-4 col-form-label text-md-right">{{ __('Address') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="address" type="address" class="form-control @error('address') is-invalid @enderror" name="address" value="{{ old('address') }}" required autocomplete="address">
+
+                                @error('address')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
@@ -65,7 +86,7 @@
                                 @enderror
                             </div>
                         </div>
-            
+
                         <br><br>
 
                         <div class="row mb-0">
