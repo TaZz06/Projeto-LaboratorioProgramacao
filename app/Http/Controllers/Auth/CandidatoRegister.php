@@ -14,20 +14,20 @@ class CandidatoRegister extends Controller
     {
 
         $request->validate([
-            'ProfissionalArea'=> ['required', 'string', 'max:255'],
-            'Schooling'=> ['required', 'string', 'max:255'],
-            'ProfessionalExperience'=> ['required', 'string', 'max:255'],
-            'Skills'=> ['required', 'string', 'max:255'],
+            'profissional_area'=> ['required', 'string', 'max:255'],
+            'schooling'=> ['required', 'string', 'max:255'],
+            'professional_experience'=> ['required', 'string', 'max:255'],
+            'skills'=> ['required', 'string', 'max:255'],
         ]);
         
         $newCandidato=Candidato::create([
             'user_id' => Auth::id(),
-            'ProfissionalArea' => $request['ProfissionalArea'],
-            'Schooling' => $request['Schooling'],
-            'ProfessionalExperience' => $request['ProfessionalExperience'],
-            'Skills'=> $request['Skills'],
+            'profissional_area' => $request['profissional_area'],
+            'schooling' => $request['schooling'],
+            'professional_experience' => $request['professional_experience'],
+            'skills'=> $request['skills'],
         ]);
-
+        
         $value = true;
         $user = User::find($newCandidato->user_id);
         $user->setRegistered($value);

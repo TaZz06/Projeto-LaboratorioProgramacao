@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use App\Models\Empresa;
 
 
 class AnuncioFactory extends Factory
@@ -15,12 +16,13 @@ class AnuncioFactory extends Factory
     public function definition()
     {
         return [
-            'Workspace' => $this->faker->jobTitle(),
-            'JobDescription' => $this->faker->text(),
-            'DesiredSkills' => $this->faker->text(),
-            'Conditions' => $this->faker->text(),
-            'Candidates' => $this->faker->numberBetween(1,50),
-            'Type' => $this->faker->text(),
+            'workspace' => $this->faker->jobTitle(),
+            'job_description' => $this->faker->text(),
+            'desired_Skills' => $this->faker->text(),
+            'salary' => $this->faker->randomFloat(4, 0, 3000),
+            'type' => $this->faker->randomElement(['T','E','ER']),
+            'candidates' => $this->faker->numberBetween(1,50),
+            'empresa_id' => Empresa::all()->random()->id,
         ];
     }
 }

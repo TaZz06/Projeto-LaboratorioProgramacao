@@ -17,8 +17,10 @@ class CreateEmpresa extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->integer('nif')->unique();
+            $table->unsignedBigInteger('logo_id')->nullable();
             $table->timestamps(); 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('logo_id')->references('id')->on('photos')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 

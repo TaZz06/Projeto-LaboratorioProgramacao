@@ -18,10 +18,10 @@ class IsRegistered
     {
         if(auth()->user()->registered == false){
             if(auth()->user()->type_user == 'C'){
-                return response()->view('candidato');
+                return response()->view('auth.candidato');
             }
             else if(auth()->user()->type_user == 'E'){
-                return response()->view('empresa');
+                return response()->view('auth.empresa');
             }
         }
         return response()->view('home');

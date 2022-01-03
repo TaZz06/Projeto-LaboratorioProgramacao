@@ -12,6 +12,6 @@ class Empresa extends Model
     protected $fillable = [
         'user_id',
         'nif',
-        'photo_id',
+        'logo_id',
     ];
 }

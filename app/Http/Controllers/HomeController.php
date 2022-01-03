@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
+
 use Illuminate\Http\Request;
-use App\Models\Photo;
+use App\Models\Anuncio;
 class HomeController extends Controller
 {
     /**
@@ -23,14 +24,14 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $pictures = Photo::all();
-        return view('home', compact('pictures'));
+        $anuncios = Anuncio::all()->paginate(7);
+        
+        return view('home', compact(['anuncios']));
     }
 
 
     public function adminHome()
     {
-        $pictures = Photo::all();
-        return view('adminHome', compact('pictures'));
+        return view('adminhome');
     }
 }

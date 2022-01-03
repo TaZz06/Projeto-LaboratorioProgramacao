@@ -16,12 +16,12 @@ class CandidatoFactory extends Factory
     {
         return [
             'user_id' => User::all()->random()->id,
-            'ProfissionalArea' => $this->faker->jobTitle(),
-            'Schooling' => $this->faker->text(),
-            'ProfessionalExperience' => $this->faker->text(),
-            'Skills' => $this->faker->text(),
-            'ApplicationHistory' => $this->faker->numberBetween(111111111, 999999999),
-            'FavoriteAds' => $this->faker->numberBetween(111111111, 999999999),
+            'profissional_area' => $this->faker->jobTitle(),
+            'schooling' => $this->faker->text(),
+            'professional_experience' => $this->faker->text(),
+            'skills' => $this->faker->text(),
+            'application_history' => $this->faker->numberBetween(111111111, 999999999),
+            'favorite_ads' => $this->faker->numberBetween(111111111, 999999999),
         ];
     }
 }

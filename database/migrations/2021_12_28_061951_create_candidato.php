@@ -17,12 +17,12 @@ class CreateCandidato extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
-            $table->string('ProfissionalArea');
-            $table->string('Schooling');
-            $table->string('ProfessionalExperience');
-            $table->string('Skills');
-            $table->integer('ApplicationHistory')->nullable();
-            $table->integer('FavoriteAds')->nullable();
+            $table->string('profissional_area');
+            $table->string('schooling');
+            $table->string('professional_experience');
+            $table->string('skills');
+            $table->integer('application_history')->nullable();
+            $table->integer('favorite_ads')->nullable();
             $table->timestamps();
         });
     }

@@ -17,11 +17,11 @@ class Candidato extends Model
      */
     protected $fillable = [
         'user_id',
-        'ProfissionalArea',
-        'Schooling',
-        'ProfessionalExperience',
-        'Skills',
-        'ApplicationHistory',
-        'FavoriteAds',
+        'profissional_area',
+        'schooling',
+        'professional_experience',
+        'skills',
+        'application_history',
+        'favorite_ads',
     ];
 }

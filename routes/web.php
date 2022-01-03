@@ -27,14 +27,12 @@ Route::get('/', function () {
 // Auth::routes();
 Auth::routes(['verify' => true]);
 
-Route::get('/index',[HomeController::class, 'main'])->name('index');
-
 Route::get('/home', [HomeController::class, 'index'])->name('home')->middleware('is_registered');
 Route::get('admin/home', [HomeController::class, 'adminHome'])->name('admin.home')->middleware('is_admin');
 
-Route::get('generate-pdf', [PDFController::class, 'generatePDF']);
+Route::post('register_candidato', [CandidatoRegister::class, 'create'])->name('register_candidato');
+Route::post('register_empresa', [EmpresaRegister::class, 'create'])->name('register_empresa');
 
-Route::post('candidatobtn', [CandidatoRegister::class, 'create'])->name('register_candidato');
-Route::post('empresabtn', [EmpresaRegister::class, 'create'])->name('register_empresa');
+Route::post('profile', [ProfileController::class, 'index'])->name('profile');
 
 Route::post('profile', [ProfileController::class, 'index'])->name('profile');

@@ -15,13 +15,15 @@ class CreateAnuncio extends Migration
     {
         Schema::create('anuncios', function (Blueprint $table) {
             $table->id();
-            $table->string('Workspace');
-            $table->string('JobDescription');
-            $table->string('DesiredSkills');
-            $table->string('Conditions');
-            $table->integer('Candidates');
-            $table->string('Type');
+            $table->unsignedBigInteger('empresa_id');
+            $table->string('workspace');
+            $table->string('job_description');
+            $table->string('desired_skills');
+            $table->float('salary');
+            $table->string('type'); 
+            $table->integer('candidates');
             $table->timestamps();
+            $table->foreign('empresa_id')->references('id')->on('empresas')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 

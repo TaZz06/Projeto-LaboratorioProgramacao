@@ -18,18 +18,20 @@ class EmpresaRegister extends Controller
             'image' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048',
         ]);
         
-        $newEmpresa=Empresa::create([
-            'user_id' => Auth::id(),
-            'nif' => $request['nif'],
-        ]);
+        
 
         $name = $request->file('image')->getClientOriginalName();
         $request->file('image')->store('public/images');
 
-        $picture = Photo::create([
+        $logo = Photo::create([
             'name' => $name,
             'path' => $request->file('image')->hashName(),
+        ]);
+        
+        $newEmpresa=Empresa::create([
             'user_id' => Auth::id(),
+            'nif' => $request['nif'],
+            'logo_id' => $logo->id,
         ]);
 
         $value = true;

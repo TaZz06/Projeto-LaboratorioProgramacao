@@ -13,7 +13,7 @@
                         <div id="flexRadioDefault1">
                             <?php
                                 $parameters = array('Profissional Area', 'Schooling', 'Professional Experience', 'Skills');
-                                $names = array('ProfissionalArea', 'Schooling', 'ProfessionalExperience', 'Skills');
+                                $names = array('profissional_area', 'schooling', 'professional_experience', 'skills');
                             ?>
 
                             @foreach (array_combine($parameters, $names) as $parameter => $name)

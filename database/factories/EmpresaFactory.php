@@ -18,6 +18,7 @@ class EmpresaFactory extends Factory
         return [
             'user_id' => $this->faker->numberBetween(1,50),
             'nif' => $this->faker->numberBetween(111111111, 999999999),
+            'logo_id' => null,
         ];
     }
 }

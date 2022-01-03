@@ -14,11 +14,12 @@ class Anuncio extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'Workspace',
-        'JobDescription',
-        'DesiredSkills',
-        'Conditions',
-        'Candidates',
-        'Type',
+        'empresa_id',
+        'workspace',
+        'job_description',
+        'desired_skills',
+        'salary',
+        'type',
+        'candidates',
     ];
 }

@@ -8,6 +8,6 @@ class ProfileController extends Controller
 {
     public function index()
     {
-        return response()->view('profile');
+        return response()->view('partials.profile');
     }
 }
