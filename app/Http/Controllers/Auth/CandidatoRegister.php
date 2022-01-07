@@ -33,6 +33,6 @@ class CandidatoRegister extends Controller
         $user->setRegistered($value);
         $user->save();
         
-        return view('home')->with('status', 'Candidato registado!');
+        return redirect()->route('home');
     }
 }

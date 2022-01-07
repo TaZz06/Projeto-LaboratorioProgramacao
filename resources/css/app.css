@@ -5,3 +5,11 @@
 .d-none{
     display: none;
 }
+
+.hidden{
+    visibility: hidden;
+}
+
+.visible{
+    visibility: visible;
+}

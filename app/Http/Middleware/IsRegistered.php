@@ -24,6 +24,6 @@ class IsRegistered
                 return response()->view('auth.empresa');
             }
         }
-        return response()->view('home');
+        return $next($request);
     }
 }

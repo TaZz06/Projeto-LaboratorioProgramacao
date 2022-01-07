@@ -1,117 +1,78 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Register') }}</div>
+  <div class="h-screen bg-gradient-to-b from-gray-800 to-black px-20 py-10 flex justify-center items-center w-full">
+    <form method="POST" action="{{ route('register') }}">
+      <div class="bg-white px-10 py-8 rounded-xl w-screen shadow-md max-w-sm">
+        <div class="space-y-4">
+          <h1 class="text-center text-2xl font-semibold text-gray-600">{{ __('Register') }}</h1>
+          <div>
+            <label for="name" class="block mb-1 text-gray-600 font-semibold">{{ __('Name') }}</label>
+            <input id="name" type="text" class="form-control @error('name') is-invalid @enderror bg-indigo-50 px-4 py-2 outline-none rounded-md w-full" 
+            name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
 
-                <div class="card-body">
-                    <form method="POST" action="{{ route('register') }}">
-                        @csrf
+            @error('name')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+            @enderror
+          </div>
 
-                        <div class="row mb-3">
-                            <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
+          <div>
+            <label for="email" class="block mb-1 text-gray-600 font-semibold">{{ __('E-Mail Address') }}</label>
+            <input id="email" type="email" class="form-control @error('email') is-invalid @enderror bg-indigo-50 px-4 py-2 outline-none rounded-md w-full" 
+            name="email" value="{{ old('email') }}" required autocomplete="email">
 
-                            <div class="col-md-6">
-                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
+            @error('email')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+            @enderror
+          </div>
 
-                                @error('name')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
+          <div>
+            <label for="address" class="block mb-1 text-gray-600 font-semibold">{{ __('Address') }}</label>
+            <input id="address" type="text" class="form-control @error('address') is-invalid @enderror bg-indigo-50 px-4 py-2 outline-none rounded-md w-full" 
+            name="address" value="{{ old('address') }}" required autocomplete="address">
 
-                        <div class="row mb-3">
-                            <label for="address" class="col-md-4 col-form-label text-md-right">{{ __('Address') }}</label>
+            @error('address')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+            @enderror
+          </div>
 
-                            <div class="col-md-6">
-                                <input id="address" type="address" class="form-control @error('address') is-invalid @enderror" name="address" value="{{ old('address') }}" required autocomplete="address">
+          <div>
+            <label for="contact" class="block mb-1 text-gray-600 font-semibold">{{ __('Contact') }}</label>
+            <input id="contact" type="text" class="form-control @error('contact') is-invalid @enderror bg-indigo-50 px-4 py-2 outline-none rounded-md w-full" 
+            name="contact" value="{{ old('contact') }}" required autocomplete="contact">
 
-                                @error('address')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
+            @error('contact')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+            @enderror
+          </div>
 
-                        <div class="row mb-3">
-                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
+          <div>
+            <label for="password" class="block mb-1 text-gray-600 font-semibold">{{ __('Password') }}</label>
+            <input id="password" type="password" class="form-control @error('password') is-invalid @enderror bg-indigo-50 px-4 py-2 outline-none rounded-md w-full" 
+            name="password" required autocomplete="new-password">
 
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
+            @error('password')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+            @enderror
+          </div>
 
-                                @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="row mb-3">
-                            <label for="contact" class="col-md-4 col-form-label text-md-right">{{ __('Contact') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="contact" type="contact" class="form-control @error('contact') is-invalid @enderror" name="contact" value="{{ old('contact') }}" required autocomplete="contact">
-
-                                @error('contact')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="row mb-3">
-                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
-
-                                @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="row mb-3">
-                            <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirm Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
-                            </div>
-                        </div>
-
-                        <div class=" col-md-3 form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="radiochoice1" value="C">
-                            <label class="form-check-label" for="flexRadioDefault1">Candidato</label>
-                        </div>
-                        <div class=" col-md-0 form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="radiochoice2" value="E">
-                            <label class="form-check-label" for="flexRadioDefault2">Empresa</label>
-                        </div>
-                        <br><br>
-
-                        <div class="row mb-0">
-                            <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Register') }}
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
+          <div>
+            <label for="password-confirm" class="block mb-1 text-gray-600 font-semibold">{{ __('Confirm Password') }}</label>
+            <input id="password-confirm" type="password" class="form-control bg-indigo-50 px-4 py-2 outline-none rounded-md w-full" name="password_confirmation" required autocomplete="new-password">
+          </div>
         </div>
-    </div>
-</div>
-
-
+        <button class="mt-4 w-full bg-gradient-to-tr from-blue-600 to-indigo-600 text-indigo-100 py-2 rounded-md text-lg tracking-wide">{{ __('Register') }}</button>
+      </div>
+    </form>
+  </div>
 @endsection

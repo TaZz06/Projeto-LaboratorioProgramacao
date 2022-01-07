@@ -20,13 +20,10 @@ use App\Http\Controllers\AnuncioController;
 |
 */
 
-Route::get('/', function () {
-    return view('home');
-});
-
 // Auth::routes();
 Auth::routes(['verify' => true]);
 
+Route::get('/', [HomeController::class, 'index'])->name('index');
 Route::get('/home', [HomeController::class, 'index'])->name('home')->middleware('is_registered');
 Route::get('admin/home', [HomeController::class, 'adminHome'])->name('admin.home')->middleware('is_admin');
 Route::get('/search', [HomeController::class, 'index'])->name('search');

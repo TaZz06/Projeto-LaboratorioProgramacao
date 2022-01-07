@@ -12,27 +12,18 @@
                 </form>
             </div>
             
-            <?php 
-                use App\Models\Anuncio;
-                use App\Models\Empresa;
-                use App\Models\Photo;
-                use App\Models\User;
-
-               $anuncios = Anuncio::all();
-            ?>
              <div class="mb-12">
                 <h2 class="text-2xl font-medium text-gray-900 title-font px-4">All jobs: ( {{ $anuncios->count() }} )</h2>
             </div>
 
             <div class="-my-6">
-
                 @foreach($anuncios as $anuncio) 
                 <div class="py-6 px-4 flex flex-wrap md:flex-nowrap border-b border-gray-100 bg-white hover:bg-gray-100">
                         <div class="md:w-16 md:mb-0 mb-6 mr-4 flex-shrink-0 flex flex-col  ">
-                            <?php $empresa = Empresa::where('id', $anuncio->empresa_id)->first();?>
+                            <?php $empresa = $empresas->where('id', $anuncio->empresa_id)->first();?>
                             @if($empresa->logo_id)
-                                <?php $logo = Photo::where('id', $empresa->logo_id)->first(); ?>
-                                <img src="{{asset('storage/images/'.$logo->path)}}" class="w-16 h-16 rounded-full object-cover">
+                                <?php $photo = $photos->where('id', $empresa->logo_id)->first(); ?>
+                                <img src="{{asset('storage/images/'.$photo->path)}}" class="w-16 h-16 rounded-full object-cover">
                             @endif
                         </div>
                         <div class="md:w-1/2 mr-8 flex flex-col items-start justify-center">
@@ -40,7 +31,7 @@
                                 <h2 class="text-xl font-bold text-gray-900 title-font mb-1">{{ $anuncio->workspace }}</h2>
                             </a>
                             <p class="leading-relaxed text-gray-900">
-                                <?php $user = User::where('id', $empresa->user_id)->first(); ?>
+                                <?php $user = $users->where('id', $empresa->user_id)->first(); ?>
                                 {{ $user->name }} &mdash; <span class="text-gray-600">{{ $anuncio->city }}</span>
                             </p>
                         </div>

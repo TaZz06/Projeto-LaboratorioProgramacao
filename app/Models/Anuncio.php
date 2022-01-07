@@ -19,9 +19,4 @@ class Anuncio extends Model
         'city',
         'candidates',
     ];
-
-
-    public static function getAllAnuncios(){
-        return Anuncio::with('')->get();
-    }
 }

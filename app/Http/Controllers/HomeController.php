@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Anuncio;
+use App\Models\Empresa;
+use App\Models\Photo;
+use App\Models\User;
 use Illuminate\Support\Facades\DB;
 class HomeController extends Controller
 {
@@ -29,9 +32,19 @@ class HomeController extends Controller
             $anuncios = Anuncio::where('city', 'like', '%'.$request['pesquisa'].'%')->get();
         }
         else{
-            $anuncios = DB::table('anuncios')->get();
+            $query = Anuncio::query()->latest();
+            $anuncios = $query->get();
+
+            $query = Empresa::query()->latest();
+            $empresas = $query->get();
+
+            $query = Photo::query()->latest();
+            $photos = $query->get();
+
+            $query = User::query()->latest();
+            $users = $query->get();
         }
-        return view('home', ['anuncios' => $anuncios]);
+        return view('home', compact('anuncios', 'empresas', 'photos', 'users'));
     }
 
 

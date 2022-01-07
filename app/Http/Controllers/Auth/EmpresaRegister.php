@@ -37,6 +37,6 @@ class EmpresaRegister extends Controller
         $user->setRegistered($value);
         $user->save();
         
-        return view('home')->with('status', 'Empresa registado!');
+        return redirect()->route('home');
     }
 }

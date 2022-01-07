@@ -70,4 +70,60 @@
         </div>
     </div>
 </div>
+
+<div class="h-screen bg-gradient-to-b from-gray-800 to-black px-20 py-10 flex justify-center items-center w-full">
+<form method="POST" action="{{ route('login') }}">
+      <div class="bg-white px-10 py-8 rounded-xl w-screen shadow-md max-w-sm">
+        <div class="space-y-4">
+          <h1 class="text-center text-2xl font-semibold text-gray-600">{{ __('Login') }}</h1>
+          <div>
+          <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
+
+            <div class="col-md-6">
+                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+
+                @error('email')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
+            </div>
+          </div>
+
+          <div>
+            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
+
+                <div class="col-md-6">
+                    <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
+
+                    @error('password')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                </div>
+          </div>
+
+          <div>
+                <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
+
+                <label class="form-check-label" for="remember">
+                    {{ __('Remember Me') }}
+                </label>
+          </div>
+
+          <div>
+          <button type="submit" class="btn btn-primary"> {{ __('Login') }}   </button>
+
+                @if (Route::has('password.request'))
+                    <a class="btn btn-link" href="{{ route('password.request') }}">
+                        {{ __('Forgot Your Password?') }}
+                    </a>
+                @endif
+          </div>
+        </div>
+      </div>
+    </form>
+</div>
 @endsection
+

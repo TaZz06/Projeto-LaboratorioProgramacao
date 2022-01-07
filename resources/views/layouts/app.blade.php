@@ -29,19 +29,29 @@
                 <div class="relative flex items-center justify-between h-16">
                     <div class="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start">
                         <div class="flex-shrink-0 flex items-center">
-                        <a class="block text-white text-2xl lg:block h-10  w-auto" href="{{'home'}}"> {{ 'StepByStep' }} </a>
+                        <a class="block text-white text-2xl lg:block h-10  w-auto" href="{{ route('home') }}"> {{ 'StepByStep' }} </a>
                         </div>
                     </div>
                 <div class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
 
                 <!-- Profile dropdown -->
+                @guest
                 <div class="ml-3 relative">
                     <div>
-                        <button type="button" class="bg-gray-800 flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white" id="user-menu-button" aria-expanded="false" aria-haspopup="true">
+                        <button type="button" onclick="myFunction();" class="bg-gray-800 flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white" id="user-menu-button" aria-expanded="false" aria-haspopup="true">
+                        <span class=" text-white text-sg">Open user menu</span>
+                        </button>
+                    </div>
+                
+                @else
+                <div class="ml-3 relative">
+                    <div>
+                        <button type="button" onclick="myFunction();" class="bg-gray-800 flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white" id="user-menu-button" aria-expanded="false" aria-haspopup="true">
                         <span class="sr-only">Open user menu</span>
                         <img class="h-8 w-8 rounded-full" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
                         </button>
                     </div>
+                @endguest
 
                     <!--
                         Dropdown menu, show/hide based on menu state.
@@ -53,11 +63,37 @@
                         From: "transform opacity-100 scale-100"
                         To: "transform opacity-0 scale-95"
                     -->
-                    <div id="nav" class="hidden origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" >
-                        <!-- Active: "bg-gray-100", Not Active: "" -->
-                        <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem"  id="user-menu-item-0">Your Profile</a>
-                        <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem"  id="user-menu-item-1">Settings</a>
-                        <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem"  id="user-menu-item-2">Sign out</a>
+                    <div id="nav1" class="hidden origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" >
+                        @guest
+                            @if (Route::has('login'))
+                                <a class="block px-4 py-2 text-sm text-gray-700" href="{{ route('login') }}" role="menuitem" id="user-menu-item-0">{{ __('Login') }}</a>
+                            @endif
+
+                            @if (Route::has('register'))
+                                <a class="block px-4 py-2 text-sm text-gray-700" href="{{ route('register') }}" role="menuitem" id="user-menu-item-0">{{ __('Register') }}</a>
+                            @endif
+                        @else
+                                <a class="block px-4 py-2 text-sm text-gray-700" href="{{ route('profile') }} role="menuitem" id="user-menu-item-0" onclick="event.preventDefault();
+                                                     document.getElementById('profile-form').submit();">{{ __('Profile') }}</a>
+                                <form id="profile-form" action="{{ route('profile') }}" method="POST" class="d-none">
+                                    @csrf
+                                </form>
+
+                                @if(Auth::user()->type_user == 'E') 
+                                <a class="block px-4 py-2 text-sm text-gray-700" href="{{ route('insert_anuncio_form') }}" role="menuitem" id="user-menu-item-0" onclick="event.preventDefault();
+                                                     document.getElementById('insertAnuncio-form').submit();">{{ __('Insert Ads') }}</a>
+                                    <form id="insertAnuncio-form" action="{{ route('insert_anuncio_form') }}" method="POST" class="d-none">
+                                        @csrf
+                                    </form>
+                                   @endif
+                                   <a class="block px-4 py-2 text-sm text-gray-700" href="{{ route('logout') }}" role="menuitem" id="user-menu-item-0" onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">{{ __('Logout') }}</a>
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                        @csrf
+                                    </form>
+                                </div>         
+                            </li>
+                        @endguest
                     </div>
                 </div>
             </div>
@@ -65,16 +101,9 @@
     </div>
 </nav>
 
-
-
-
-
-
-
-
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
-                <a class="navbar-brand" href="{{'home'}}">
+                <a class="navbar-brand" href="{{'/home'}}">
                     {{ 'StepByStep' }}
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
@@ -151,14 +180,17 @@
     </div>
     <script>
         function myFunction() {
-  var x = document.getElementById("myDIV");
-  if (x.style.display === "none") {
-    x.style.display = "block";
-  } else {
-    x.style.display = "none";
-  }
-}
-       
+        var x = document.getElementById("nav1");
+        if (x.classList.contains("hidden")) {
+            x.classList.add("visible")
+            x.classList.remove("hidden");
+           // x.style.visibility = "visible";
+        } else {
+            x.classList.remove("visible")
+            x.classList.add("hidden");
+            //x.style.visibility = "hidden";
+        }
+    }
     </script>
     <script src="https://unpkg.com/@themesberg/flowbite@1.3.0/dist/flowbite.bundle.js"></script>
 </body>
