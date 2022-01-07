@@ -22,7 +22,7 @@ class CreateAnuncio extends Migration
             $table->float('salary')->nullable();
             $table->string('type'); 
             $table->integer('candidates')->nullable();
-            $table->string('address');
+            $table->string('city');
             $table->timestamps();
             $table->foreign('empresa_id')->references('id')->on('empresas')->onDelete('cascade');
         });

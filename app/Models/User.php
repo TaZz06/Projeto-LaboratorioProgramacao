@@ -52,4 +52,9 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         $this->attributes['registered'] = $value;
     }
+
+    public static function getUserById($user_id){
+        $user = User::where('id', $user_id)->first();
+        return $user;
+    }
 }

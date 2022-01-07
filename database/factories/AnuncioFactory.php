@@ -22,7 +22,7 @@ class AnuncioFactory extends Factory
             'salary' => $this->faker->randomFloat(4, 0, 3000),
             'type' => $this->faker->randomElement(['T','E','ER']),
             'candidates' => $this->faker->numberBetween(1,50),
-            'address' => $this->faker->address(),
+            'city' => $this->faker->city(),
             'empresa_id' => Empresa::all()->random()->id,
         ];
     }

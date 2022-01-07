@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Anuncio;
+use Illuminate\Support\Facades\DB;
 class HomeController extends Controller
 {
     /**
@@ -22,11 +23,15 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
+    public function index(Request $request)
     {
-        $anuncios = Anuncio::all();
-        
-        return view('home')->with(compact('anuncios'));
+        if ($request->has('pesquisa')){
+            $anuncios = Anuncio::where('city', 'like', '%'.$request['pesquisa'].'%')->get();
+        }
+        else{
+            $anuncios = DB::table('anuncios')->get();
+        }
+        return view('home', ['anuncios' => $anuncios]);
     }
 
 

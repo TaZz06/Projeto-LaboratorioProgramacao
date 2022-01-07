@@ -16,7 +16,12 @@ class Anuncio extends Model
         'desired_skills',
         'salary',
         'type',
-        'address',
+        'city',
         'candidates',
     ];
+
+
+    public static function getAllAnuncios(){
+        return Anuncio::with('')->get();
+    }
 }

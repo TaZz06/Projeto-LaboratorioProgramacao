@@ -8,7 +8,7 @@
                 <div class="card-header">{{ __('Criar Anuncio') }}</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('insert_anuncio') }}">
+                    <form id="payment_form" method="POST"  action="{{ route('insert_anuncio') }}">
                         @csrf
                         <div class="row mb-3">
                             <select name="type">
@@ -35,7 +35,7 @@
                             <label for="job_description" class="col-md-4 col-form-label text-md-right">{{ __('Job Description') }}</label>
 
                             <div class="col-md-6">
-                                <input id="job_description" type="job_description" class="form-control @error('job_description') is-invalid @enderror" name="job_description" value="{{ old('job_description') }}" required autocomplete="job_description">
+                                <input id="job_description" type="job_description" class="form-control @error('job_description') is-invalid @enderror rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 block mt-1 w-full" name="job_description" value="{{ old('job_description') }}" required autocomplete="job_description">
 
                                 @error('job_description')
                                     <span class="invalid-feedback" role="alert">
@@ -49,7 +49,7 @@
                             <label for="desired_skills" class="col-md-4 col-form-label text-md-right">{{ __('Skills needed') }}</label>
 
                             <div class="col-md-6">
-                                <input id="desired_skills" type="desired_skills" class="form-control @error('desired_skills') is-invalid @enderror" name="desired_skills" value="{{ old('desired_skills') }}" required autocomplete="skills">
+                                <input id="desired_skills" type="desired_skills" class="form-control @error('desired_skills') is-invalid @enderror rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 block mt-1 w-full" name="desired_skills" value="{{ old('desired_skills') }}" required autocomplete="skills">
 
                                 @error('skills')
                                     <span class="invalid-feedback" role="alert">
@@ -60,12 +60,12 @@
                         </div>
 
                         <div class="row mb-3">
-                            <label for="address" class="col-md-4 col-form-label text-md-right">{{ __('Address') }}</label>
+                            <label for="city" class="col-md-4 col-form-label text-md-right">{{ __('City') }}</label>
 
                             <div class="col-md-6">
-                                <input id="address" type="address" class="form-control @error('address') is-invalid @enderror" name="address" value="{{ old('address') }}" required autocomplete="address">
+                                <input id="city" type="city" class="form-control @error('city') is-invalid @enderror" name="city" value="{{ old('city') }}" required autocomplete="city">
 
-                                @error('address')
+                                @error('city')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
@@ -102,6 +102,4 @@
         </div>
     </div>
 </div>
-
-
 @endsection
