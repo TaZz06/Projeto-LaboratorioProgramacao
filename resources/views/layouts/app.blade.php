@@ -65,22 +65,21 @@
                         @endguest
                     </div>
 
-                    <div id="nav1" class="hidden origin-top-right absolute right-0 top-16 w-48 rounded-md shadow-lg py-2 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" >
+                    <div id="nav1" class="hidden origin-top-right absolute right-0 top-16 w-48 rounded-md shadow-lg py-2 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1">
                         @auth
-                            <a class="block px-4 py-2 text-sm text-gray-700" href="{{ route('profile') }} role="menuitem" id="user-menu-item-0" onclick="event.preventDefault();
+                            <a class="block px-4 py-2 text-sm text-gray-700" href="{{ route('profile') }} role="menuitem" tabindex="-1" id="user-menu-item-0" onclick="event.preventDefault();
                             document.getElementById('profile-form').submit();">{{ __('Profile') }}</a>
                             <form id="profile-form" action="{{ route('profile') }}" method="POST" class="d-none">
                                 @csrf
                             </form>
-
                         @if(Auth::user()->type_user == 'E') 
-                            <a class="block px-4 py-2 text-sm text-gray-700" href="{{ route('insert_anuncio_form') }}" role="menuitem" id="user-menu-item-0" onclick="event.preventDefault();
+                            <a class="block px-4 py-2 text-sm text-gray-700" href="{{ route('insert_anuncio_form') }}" role="menuitem" tabindex="-1" id="user-menu-item-0" onclick="event.preventDefault();
                             document.getElementById('insertAnuncio-form').submit();">{{ __('Insert Ads') }}</a>
                             <form id="insertAnuncio-form" action="{{ route('insert_anuncio_form') }}" method="POST" class="d-none">
                                 @csrf
                             </form>
                         @endif
-                            <a class="block px-4 py-2 text-sm text-gray-700" href="{{ route('logout') }}" role="menuitem" id="user-menu-item-0" onclick="event.preventDefault();
+                            <a class="block px-4 py-2 text-sm text-gray-700" href="{{ route('logout') }}" role="menuitem" tabindex="-1" id="user-menu-item-0" onclick="event.preventDefault();
                             document.getElementById('logout-form').submit();">{{ __('Logout') }}</a>
                             <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                 @csrf

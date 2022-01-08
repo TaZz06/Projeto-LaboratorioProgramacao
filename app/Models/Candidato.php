@@ -21,7 +21,11 @@ class Candidato extends Model
         'schooling',
         'professional_experience',
         'skills',
-        'application_history',
-        'favorite_ads',
     ];
+
+    public static function getCandidatoById($user_id)
+    {
+        $candidato = Candidato::where('user_id', $user_id)->first();
+        return $candidato;
+    }
 }

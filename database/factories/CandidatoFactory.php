@@ -20,8 +20,6 @@ class CandidatoFactory extends Factory
             'schooling' => $this->faker->text(),
             'professional_experience' => $this->faker->text(),
             'skills' => $this->faker->text(),
-            'application_history' => $this->faker->numberBetween(111111111, 999999999),
-            'favorite_ads' => $this->faker->numberBetween(111111111, 999999999),
         ];
     }
 }

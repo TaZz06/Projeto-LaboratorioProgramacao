@@ -20,7 +20,7 @@ class AnuncioFactory extends Factory
             'job_description' => $this->faker->text(),
             'desired_Skills' => $this->faker->text(),
             'salary' => $this->faker->randomFloat(4, 0, 3000),
-            'type' => $this->faker->randomElement(['T','E','ER']),
+            'type' => $this->faker->randomElement(['J','I','PI']),
             'candidates' => $this->faker->numberBetween(1,50),
             'city' => $this->faker->city(),
             'empresa_id' => Empresa::all()->random()->id,

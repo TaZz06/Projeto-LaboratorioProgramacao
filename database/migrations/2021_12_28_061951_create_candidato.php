@@ -21,8 +21,6 @@ class CreateCandidato extends Migration
             $table->string('schooling');
             $table->string('professional_experience');
             $table->string('skills');
-            $table->integer('application_history')->nullable();
-            $table->integer('favorite_ads')->nullable();
             $table->timestamps();
         });
     }

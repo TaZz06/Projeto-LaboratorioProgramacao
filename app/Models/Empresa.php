@@ -21,6 +21,11 @@ class Empresa extends Model
         return $empresa;
     }
 
+    public static function getEmpresaId($user_id){
+        $empresa = Empresa::where('user_id', $user_id)->first();
+        return $empresa->id;
+    }
+
     public static function getPhotoByUserId($user_id){
         $empresa= Empresa::getEmpresaById($user_id);
         $id = $empresa->logo_id;

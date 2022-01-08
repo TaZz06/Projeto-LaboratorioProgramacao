@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
+
     <div class="h-screen bg-gradient-to-b from-gray-500 to-violet-50 px-20 py-10 flex justify-center items-center w-full">
         <form method="POST" action="{{ route('login') }}" class="h-screen py-52">
             <div class="bg-white px-10 py-8 rounded-xl w-screen shadow-md max-w-sm">
@@ -35,14 +36,22 @@
                             {{ __('Remember Me') }}
                         </label>
                     </div>
-
-                    <button class="mt-4 w-full bg-gradient-to-tr from-blue-600 to-indigo-600 text-indigo-100 py-2 rounded-md text-lg tracking-wide">{{ __('Login') }}</button>
-                    @if (Route::has('password.request'))
-                        <a class="btn btn-link text-gray-600 font-semibold" href="{{ route('password.request') }}">
-                        {{ __('Forgot Your Password?') }}
-                        </a>
-                    @endif
                 </div>
+                <button class="mt-4 w-full bg-gradient-to-tr from-blue-600 to-indigo-600 text-indigo-100 py-2 rounded-md text-lg tracking-wide">{{ __('Login') }}</button>
+                @if (Route::has('password.request'))
+                    <div class="justify-center">
+                        <div class="space-y-2">
+                            <a class="inline-block text-sm text-blue-500 hover:text-blue-800" href="{{ route('password.request') }}">
+                            {{ __('Forgot Your Password?') }}
+                            </a>
+                        </div>
+                        <div class="space-y-2">
+                            <a class="inline-block text-sm text-blue-500 hover:text-blue-800 " href="{{ route('register') }}">
+                            {{ __('Sign in') }}
+                            </a>
+                        </div>
+                    </div>
+                @endif
             </div>
         </form>
     </div>

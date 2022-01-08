@@ -19,11 +19,14 @@ class HomeController extends Controller
     public function index(Request $request)
     {
         if ($request->has('pesquisa')){
-            $infos = Anuncio::where('city', 'like', '%'.$request['pesquisa'].'%')->get();
+            $infos = DB::table('anuncios')->leftjoin('empresas', 'empresas.id', '=', 'anuncios.empresa_id')
+            ->leftjoin('photos', 'photos.id', '=', 'empresas.logo_id')
+            ->leftjoin('users','users.id', '=', 'empresas.user_id')
+            ->select('anuncios.*', 'anuncios.id as id','empresas.logo_id as logo_id', 'photos.path', 'users.name')
+            ->where('city', 'like', '%'.$request['pesquisa'].'%')->orWhere('workspace', 'like', '%'.$request['pesquisa'].'%')->orWhere('users.name', 'like', '%'.$request['pesquisa'].'%')->get();
         }
         else{
             $infos = DB::table('anuncios')
-            //->where()
             ->leftjoin('empresas', 'empresas.id', '=', 'anuncios.empresa_id')
             ->leftjoin('photos', 'photos.id', '=', 'empresas.logo_id')
             ->leftjoin('users','users.id', '=', 'empresas.user_id')

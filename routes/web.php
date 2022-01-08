@@ -41,7 +41,6 @@ Route::post('profile', [ProfileController::class, 'index'])->name('profile');
 Route::post('insert_anuncio_form', [AnuncioController::class, 'indexInsertAnuncio'])->name('insert_anuncio_form');
 Route::post('insert_anuncio', [AnuncioController::class, 'insertAnuncio'])->name('insert_anuncio');
 
-Route::get('/{anuncio}', [AnuncioController::class, 'show'])->name('show_anuncio');
+Route::get('anuncio={anuncio}', [AnuncioController::class, 'show'])->name('show_anuncio');
 
-
-Route::post('apply_anuncio', [AnuncioController::class, ''])->name('apply_anuncio');
+Route::post('apply_anuncio/{id}', [AnuncioController::class, 'appliance'])->name('apply_anuncio')->middleware('is_candidate');

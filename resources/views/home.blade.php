@@ -34,13 +34,13 @@
                                     </p>
                                 </div>
                                 <div class="md:flex-grow mr-8 flex items-center justify-start">
-                                    @if($info->type == 'T')
-                                        <p class="leading-relaxed text-gray-900"> Trabalho </p>
+                                    @if($info->type == 'J')
+                                        <p class="leading-relaxed text-gray-900"> Job </p>
 
-                                    @elseif($info->type == 'ER')
-                                        <p class="leading-relaxed text-gray-900"> Estágio Remunerado</p>
+                                    @elseif($info->type == 'PI')
+                                        <p class="leading-relaxed text-gray-900"> Paid Internship</p>
                                     @else
-                                        <p class="leading-relaxed text-gray-900"> Estágio </p>
+                                        <p class="leading-relaxed text-gray-900"> Internship </p>
                                     @endif
                                 </div>
                                 <span class="md:flex-grow flex items-center justify-end">
