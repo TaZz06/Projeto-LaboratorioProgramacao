@@ -72,7 +72,7 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return \App\Models\User
      */
-    protected function create(array $data)
+    protected function create(Request $data)
     {
        $newUser = User::create([
             'name' => $data['name'],
@@ -84,7 +84,10 @@ class RegisterController extends Controller
             'type_user' => $data['flexRadioDefault'],
             'registered' => false,
         ]);
-        return $newUser;
+        Auth::login($newUser);
+        return redirect()->route('home');
     }
+    
+
     
 }

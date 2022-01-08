@@ -4,6 +4,7 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\CandidatoRegister;
 use App\Http\Controllers\Auth\EmpresaRegister;
 use App\Http\Controllers\ProfileController;
@@ -20,14 +21,18 @@ use App\Http\Controllers\AnuncioController;
 |
 */
 
+Route::get('/', function () {
+    return redirect()->route('home');
+});
+
 // Auth::routes();
 Auth::routes(['verify' => true]);
 
-Route::get('/', [HomeController::class, 'index'])->name('index');
 Route::get('/home', [HomeController::class, 'index'])->name('home')->middleware('is_registered');
 Route::get('admin/home', [HomeController::class, 'adminHome'])->name('admin.home')->middleware('is_admin');
 Route::get('/search', [HomeController::class, 'index'])->name('search');
 
+Route::post('register', [RegisterController::class, 'create'])->name('register');
 Route::post('register_candidato', [CandidatoRegister::class, 'create'])->name('register_candidato');
 Route::post('register_empresa', [EmpresaRegister::class, 'create'])->name('register_empresa');
 

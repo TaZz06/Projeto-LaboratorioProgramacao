@@ -4,23 +4,13 @@ namespace App\Http\Controllers;
 
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Models\Anuncio;
 use App\Models\Empresa;
 use App\Models\Photo;
 use App\Models\User;
-use Illuminate\Support\Facades\DB;
 class HomeController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware(['auth','verified']);
-    }
-
     /**
      * Show the application dashboard.
      *
@@ -29,22 +19,18 @@ class HomeController extends Controller
     public function index(Request $request)
     {
         if ($request->has('pesquisa')){
-            $anuncios = Anuncio::where('city', 'like', '%'.$request['pesquisa'].'%')->get();
+            $infos = Anuncio::where('city', 'like', '%'.$request['pesquisa'].'%')->get();
         }
         else{
-            $query = Anuncio::query()->latest();
-            $anuncios = $query->get();
-
-            $query = Empresa::query()->latest();
-            $empresas = $query->get();
-
-            $query = Photo::query()->latest();
-            $photos = $query->get();
-
-            $query = User::query()->latest();
-            $users = $query->get();
+            $infos = DB::table('anuncios')
+            //->where()
+            ->leftjoin('empresas', 'empresas.id', '=', 'anuncios.empresa_id')
+            ->leftjoin('photos', 'photos.id', '=', 'empresas.logo_id')
+            ->leftjoin('users','users.id', '=', 'empresas.user_id')
+            ->select('anuncios.*', 'anuncios.id as id','empresas.logo_id as logo_id', 'photos.path', 'users.name')
+            ->get();
         }
-        return view('home', compact('anuncios', 'empresas', 'photos', 'users'));
+        return view('home', compact('infos'));
     }
 
 

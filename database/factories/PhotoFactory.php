@@ -4,7 +4,7 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class EmpresaFactory extends Factory
+class PhotoFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -14,9 +14,8 @@ class EmpresaFactory extends Factory
     public function definition()
     {
         return [
-            'user_id' => $this->faker->numberBetween(1,50),
-            'nif' => $this->faker->numberBetween(111111111, 999999999),
-            'logo_id' => 1,
+            'name' => 'default_user',
+            'path' => 'default_user.png',
         ];
     }
 }

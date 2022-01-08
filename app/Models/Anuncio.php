@@ -19,4 +19,9 @@ class Anuncio extends Model
         'city',
         'candidates',
     ];
+
+    public static function getAnuncioById($anuncio_id){
+        $anuncio = Anuncio::where('id', $anuncio_id)->first();
+        return $anuncio;
+    }
 }

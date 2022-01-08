@@ -38,7 +38,8 @@ class AnuncioController extends Controller
         return view('anuncios.insert_anuncio');
     }
 
-    protected function show(Anuncio $anuncio, Request $request){
+    protected function show($anuncio_received){
+        $anuncio = Anuncio::getAnuncioById($anuncio_received);
         $empresa = Empresa::getEmpresaById($anuncio->empresa_id);
         $user = User::getUserById($empresa->user_id);
         $photo = Photo::getPhotoById($empresa->logo_id);

@@ -1,57 +1,33 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Register Empresa') }}</div>
+<div class="bg-gradient-to-b from-gray-500 to-violet-50 px-20 py-10 flex justify-center items-center">
+    <form method="POST" action="{{ route('register_empresa') }}" enctype="multipart/form-data" class="h-screen py-8">
+        <div class="bg-white px-10 py-8 rounded-xl w-screen shadow-md max-w-sm">
+            <div class="space-y-4">
+                <h1 class="text-center text-2xl font-semibold text-gray-600">{{ __('Register Company') }}</h1>
+                <div>
+                    @csrf
+                    <div id="flexRadioDefault2">
+                        <label for="nif" class="block mb-1 text-gray-600 font-semibold">{{ __('NIF') }}</label>
+                        <input id="nif" type="text" class="form-control bg-indigo-50 px-4 py-2 outline-none rounded-md w-full" name="nif" value="{{ old('nif') }}" required autocomplete="nif">
 
-                <div class="card-body">
-                    <form method="POST" action="{{ route('register_empresa') }}" enctype="multipart/form-data">
-                        @csrf
-
-                        <div id="flexRadioDefault2">
-                            <div class="row mb-3">
-                                <label for="nif" class="col-md-4 col-form-label text-md-right">{{ __('NIF') }}</label>
-                            
-                                <div class="col-md-6">
-                                    <input id="nif" type="text" class="form-control @error('nif') is-invalid @enderror" name="nif" value="{{ old('nif') }}" required autocomplete="nif">
-                            
-                                    @error('nif')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-                            </div>  
-                            <div class="row mb-3">
-                                <div class="col-md-6">
-                                    <input type="file" name="image" placeholder="Choose image" id="image">
-                                    @error('image')
-                                        <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                            </div>
-                            
-                        </div>
-                         
-                        <div class="row mb-0">
-                            <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Register') }}
-                                </button>
-                            </div>
-                        </div>
-                    </form>
+                        @error('nif')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>  
+                    <div class="py-6">  
+                        <input type="file" name="image" placeholder="Choose image" id="image">
+                            @error('image')
+                                <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
+                            @enderror
+                    </div> 
+                    <button class="mt-2 w-full bg-gradient-to-tr from-blue-600 to-indigo-600 text-indigo-100 py-2 rounded-md text-lg tracking-wide">{{ __('Register') }}</button>
                 </div>
             </div>
         </div>
-    </div>
+    </form>
 </div>
-
-
 @endsection
-
-
-
