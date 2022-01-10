@@ -28,7 +28,7 @@
             <div class="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
                 <div class="relative flex items-center justify-between h-16">
                     <div class="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start">
-                        <div class="flex-shrink-0 flex items-center space-x-3">
+                        <div class="w-full flex-shrink-0 flex items-center space-x-3">
                             <svg class="h-6 w-6 text-indigo-500" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                                 <path fill-rule="evenodd" d="M12 1.586l-4 4v12.828l4-4V1.586zM3.707 3.293A1 1 0 002 4v10a1 1 0 00.293.707L6 18.414V5.586L3.707 3.293zM17.707 5.293L14 1.586v12.828l2.293 2.293A1 1 0 0018 16V6a1 1 0 00-.293-.707z" clip-rule="evenodd" />
                             </svg>
@@ -65,7 +65,7 @@
                         @endguest
                     </div>
 
-                    <div id="nav1" class="hidden origin-top-right absolute right-0 top-16 w-48 rounded-md shadow-lg py-2 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1">
+                    <div id="nav1" class="z-20 hidden origin-top-right absolute right-0 top-16 w-48 rounded-md shadow-lg py-2 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1">
                         @auth
                             <a class="block px-4 py-2 text-sm text-gray-700" href="{{ route('profile') }} role="menuitem" tabindex="-1" id="user-menu-item-0" onclick="event.preventDefault();
                             document.getElementById('profile-form').submit();">{{ __('Profile') }}</a>
@@ -90,7 +90,7 @@
             </div>
         </nav>
     </div>
-    <main class="bg-gradient-to-b from-gray-500 to-violet-50">
+    <main class="bg-gradient-to-b from-gray-500 to-violet-50 h-full">
         @yield('content')
     </main>
     <script>

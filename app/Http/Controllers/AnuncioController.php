@@ -16,7 +16,7 @@ class AnuncioController extends Controller
         return view('anuncios.insert_anuncio');
     }
 
-    protected function insertAnuncio(Request $request)
+    protected function insert_anuncio(Request $request)
     {
         $request->validate([
             'workspace'=> ['required', 'string', 'max:30'],
@@ -50,7 +50,7 @@ class AnuncioController extends Controller
 
     public function appliance(Request $request, $id){
         $request->validate([
-            'pdf' => 'required|mimes:pdf|max:10000',
+            'pdf' => 'required|mimes:pdf|max:100000',
         ]);
 
         $name = $request->file('pdf')->getClientOriginalName();

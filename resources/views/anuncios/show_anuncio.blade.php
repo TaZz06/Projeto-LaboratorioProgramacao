@@ -4,7 +4,7 @@
 
         <section class="text-gray-600 body-font overflow-hidden">
             <div class="relative min-h-screen top-20 items-center justify-center sm:px-10 lg:px-20 relative items-center">
-                <div class="w-full space-y-4 p-10 bg-white rounded-xl shadow-lg z-10">
+                <div class="w-full space-y-4 p-10 bg-white rounded-xl shadow-lg">
                     <div class="mb-12">
                         <h2 class="text-2xl font-medium text-gray-900 title-font">
                             {{ $anuncio->workspace }}
@@ -48,9 +48,9 @@
         <dialog id="mymodalcentered" class="bg-transparent z-0 relative w-screen h-screen">
             <div class="p-7 flex justify-center items-center fixed left-0 top-0 w-full h-full bg-gray-900 bg-opacity-50 z-50 transition-opacity duration-300 opacity-0">
                 <form method="POST" action="{{ route('apply_anuncio', $anuncio->id) }}" enctype="multipart/form-data" class="h-screen py-52">
-                    <div class="bg-white px-10 py-8 rounded-xl w-screen shadow-md max-w-sm">
-                        <a onclick="modalClose('mymodalcentered')">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="absolute h-5 w-5 ml-[300px]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <div class="bg-white px-10 py-8 rounded-xl w-screen shadow-md max-w-sm relative">
+                        <a class="absolute h-5 w-5 right-4 top-4" onclick="modalClose('mymodalcentered')">
+                            <svg xmlns="http://www.w3.org/2000/svg"  fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                             </svg>
                         </a>

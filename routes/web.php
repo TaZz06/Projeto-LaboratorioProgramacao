@@ -9,6 +9,7 @@ use App\Http\Controllers\Auth\CandidatoRegister;
 use App\Http\Controllers\Auth\EmpresaRegister;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AnuncioController;
+use App\Http\Controllers\DownloadFileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,10 +38,14 @@ Route::post('register_candidato', [CandidatoRegister::class, 'create'])->name('r
 Route::post('register_empresa', [EmpresaRegister::class, 'create'])->name('register_empresa');
 
 Route::post('profile', [ProfileController::class, 'index'])->name('profile');
+Route::post('edit_profile', [ProfileController::class, 'edit_profile'])->name('edit_profile');
+Route::get('edit_profile_form', [ProfileController::class, 'edit_index'])->name('edit_profile_form');
+Route::get('/download/{path}/', [DownloadFileController::class, 'downloadFile'])->name('download_cv');
 
 Route::post('insert_anuncio_form', [AnuncioController::class, 'indexInsertAnuncio'])->name('insert_anuncio_form');
-Route::post('insert_anuncio', [AnuncioController::class, 'insertAnuncio'])->name('insert_anuncio');
+Route::post('insert_anuncio', [AnuncioController::class, 'insert_anuncio'])->name('insert_anuncio');
+Route::get('/anuncio/{anuncio}/', [AnuncioController::class, 'show'])->name('show_anuncio');
+Route::post('apply_anuncio', [AnuncioController::class, 'appliance'])->name('apply_anuncio')->middleware('is_candidate');
+Route::get('/remove_anuncio/{anuncio}/', [AnuncioController::class, 'remove_anuncio'])->name('remove_anuncio');
 
-Route::get('anuncio={anuncio}', [AnuncioController::class, 'show'])->name('show_anuncio');
 
-Route::post('apply_anuncio/{id}', [AnuncioController::class, 'appliance'])->name('apply_anuncio')->middleware('is_candidate');

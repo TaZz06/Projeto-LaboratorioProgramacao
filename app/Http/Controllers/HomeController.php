@@ -19,7 +19,8 @@ class HomeController extends Controller
     public function index(Request $request)
     {
         if ($request->has('pesquisa')){
-            $infos = DB::table('anuncios')->leftjoin('empresas', 'empresas.id', '=', 'anuncios.empresa_id')
+            $infos = DB::table('anuncios')
+            ->leftjoin('empresas', 'empresas.id', '=', 'anuncios.empresa_id')
             ->leftjoin('photos', 'photos.id', '=', 'empresas.logo_id')
             ->leftjoin('users','users.id', '=', 'empresas.user_id')
             ->select('anuncios.*', 'anuncios.id as id','empresas.logo_id as logo_id', 'photos.path', 'users.name')

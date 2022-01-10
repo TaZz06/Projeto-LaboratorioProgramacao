@@ -4,9 +4,9 @@
     <div class="relative min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 relative items-center">
         <div class="max-w-md w-full space-y-8 p-10 bg-white rounded-xl shadow-lg z-10">
             <div class="grid  gap-8 grid-cols-1">
-                <div class="flex flex-col ">
+                <div class="flex flex-col relative">
                     <div class="flex flex-col sm:flex-row items-center">
-                        <h2 class="font-semibold text-lg mr-auto">Create Announcement</h2>
+                        <h1 class="text-center text-2xl font-semibold text-gray-600">Create Announcement</h1>
                         <div class="w-full sm:w-auto sm:ml-auto mt-3 sm:mt-0"></div>
                     </div>
                     <div class="mt-5">
@@ -14,8 +14,8 @@
                             @csrf
                             <div class="w-full flex flex-col mb-3">
                                 <label for="type" class="block mb-1 text-gray-600 font-semibold">Type</label>
-                                <select name="type" class="block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded-lg h-10 px-4 md:w-full " required="required">
-                                    <option value="">Announcement Type</option>
+                                <select name="type" class="bg-indigo-50 px-4 py-2 outline-none rounded-md w-full " required="required">
+                                    <option value="">           </option>
                                     <option value="I">Internship</option>
                                     <option value="PI">Paid Internship</option>
                                     <option value="J">Job</option>
@@ -27,13 +27,13 @@
                                 <label for="workspace" class="block mb-1 text-gray-600 font-semibold">{{ __('Workspace') }}</label>
                                 <input 
                                 id="workspace" 
-                                type="workspace" 
+                                type="text" 
                                 name="workspace" 
-                                placeholder="Workspace" 
-                                class="form-control @error('workspace') is-invalid @enderror appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded-lg h-10 px-4" 
+                                class="form-control @error('workspace') is-invalid @enderror bg-indigo-50 px-4 py-2 outline-none rounded-md w-full" 
                                 value="{{ old('workspace') }}"
                                 type="text" 
-                                required autocomplete="workspace">
+                                required="required"
+                                autocomplete="workspace">
                                 @error('workspace')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -42,20 +42,25 @@
                             </div>
 
                             <div class="w-full flex flex-col mb-3">
-                                <label class="font-semibold text-gray-600 py-2">City</label>
-                                <input placeholder="City" class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded-lg h-10 px-4" type="text" required="required" name="city" id="city">
+                                <label class="block mb-1 text-gray-600 font-semibold">City</label>
+                                <input 
+                                class="bg-indigo-50 px-4 py-2 outline-none rounded-md w-full" 
+                                type="text" 
+                                required="required" 
+                                name="city" 
+                                id="city">
                             </div>
 
                             <div class="flex-auto w-full mb-1 space-y-2">
-                                <label for="job_description" class="font-semibold text-gray-600 py-2">{{ __('Job Description') }}</label>
+                                <label for="job_description" class="block mb-1 text-gray-600 font-semibold">{{ __('Job Description') }}</label>
                                 <textarea 
                                     id="job_description" 
-                                    type="job_description" 
-                                    class="w-full min-h-[100px] max-h-[300px] h-28 appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded-lg  py-4 px-4 form-control @error('job_description') is-invalid @enderror" 
-                                    placeholder="Enter your company info" 
+                                    type="text" 
+                                    class="w-full min-h-[100px] max-h-[300px] h-28 appearance-none block w-full bg-indigo-50 px-4 py-2 outline-none rounded-md text-grey-darker border border-grey-lighter form-control @error('desired_skills') is-invalid @enderror"
                                     name="job_description" 
                                     value="{{ old('job_description') }}" 
-                                    required autocomplete="job_description"></textarea>
+                                    required="required"
+                                    autocomplete="job_description"></textarea>
                                 @error('job_description')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -64,15 +69,15 @@
                             </div>
 
                             <div class="flex-auto w-full mb-1 space-y-2">
-                                <label for="desired_skills" class="font-semibold text-gray-600 py-2">{{ __('Skills Expected') }}</label>
+                                <label for="desired_skills" class="block mb-1 text-gray-600 font-semibold">{{ __('Skills Expected') }}</label>
                                 <textarea 
                                     id="desired_skills" 
-                                    type="desired_skills" 
-                                    class="w-full min-h-[100px] max-h-[300px] h-28 appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded-lg  py-4 px-4 form-control @error('desired_skills') is-invalid @enderror" 
-                                    placeholder="Enter your desired worker skills" 
+                                    type="text" 
+                                    class="w-full min-h-[100px] max-h-[300px] h-28 appearance-none block w-full bg-indigo-50 px-4 py-2 outline-none rounded-md text-grey-darker border border-grey-lighter form-control @error('desired_skills') is-invalid @enderror" 
                                     name="desired_skills" 
                                     value="{{ old('desired_skills') }}" 
-                                    required autocomplete="desired_skills"></textarea>
+                                    required="required"
+                                    autocomplete="desired_skills"></textarea>
                                 @error('desired_skills')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -82,16 +87,16 @@
 
                             <div class="md:flex md:flex-row md:space-x-4 w-full">
                                 <div class="w-full flex flex-col mb-3">
-                                    <label for="salary" class="font-semibold text-gray-600 py-2">{{ __('Salary') }}</label>
+                                    <label for="salary" class="block mb-1 text-gray-600 font-semibold">{{ __('Salary') }}</label>
                                     <input 
                                     id="salary" 
-                                    type="salary" 
-                                    name="salary" 
-                                    placeholder="Salary ( € )" 
-                                    class="form-control @error('salary') is-invalid @enderror appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded-lg h-10 px-4" 
+                                    type="text" 
+                                    name="salary"
+                                    class="form-control @error('salary') is-invalid @enderror bg-indigo-50 px-4 py-2 outline-none rounded-md w-full" 
                                     value="{{ old('salary') }}"
                                     type="text" 
-                                    required autocomplete="salary">
+                                    required="required" 
+                                    autocomplete="salary">
                                     @error('salary')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -100,7 +105,10 @@
                                 </div>
                             </div>
                             <div class="mt-5 text-right md:space-x-3 md:block flex flex-col-reverse">
-                                <button class="mb-2 md:mb-0 bg-green-400 px-5 py-2 text-sm shadow-sm font-medium tracking-wider text-white rounded-full hover:shadow-lg hover:bg-green-500">{{ __('Publish') }}</button>
+                                <button class="w-full bg-gradient-to-tr from-blue-600 to-indigo-600 text-indigo-100 py-2 rounded-md text-lg tracking-wide">{{ __('Publish') }}</button>
+                            </div>
+                            <div class="mt-2 flex">
+                                <a href="{{ route('home') }}" class="text-center w-full bg-gradient-to-tr from-red-600 to-orange-600 text-indigo-100 py-2 rounded-md text-lg"> Cancel </a>
                             </div>
                         </form>
                     </div>
