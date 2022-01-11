@@ -144,6 +144,40 @@
                         </div>
                     </div>
                     </div>
+                    @foreach($infos as $info)
+                        <div class="border-b border-gray-300 bg-white hover:bg-indigo-200 rounded-md mb-2">
+                            <div class="relative">
+                                <a class="absolute w-5 h-5 text-red-500 right-4 top-2" href="{{ route('remove_candidatura', $info->idAnuncio) }}"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                    </svg>
+                                </a>
+                            </div>
+                            
+                            <div class='py-6 px-4 flex flex-wrap md:flex-nowrap'>
+                                <div class="md:w-1/2 mr-8 flex flex-col items-start justify-center">
+                                    <a href="{{ route('show_anuncio', $info->idAnuncio) }}"> 
+                                        <h2 class="text-xl font-bold text-gray-900 title-font mb-1">{{ $info->workspace }}</h2>
+                                    </a>
+                                    <p class="leading-relaxed text-gray-900">
+                                        <span class="text-gray-600">{{ $info->city }}</span>
+                                    </p>
+                                </div>
+                                <div class="md:flex-grow mr-8 flex items-center justify-start">
+                                    @if($info->type == 'J')
+                                        <p class="leading-relaxed text-gray-900"> Job </p>
+
+                                    @elseif($info->type == 'PI')
+                                        <p class="leading-relaxed text-gray-900"> Paid Internship</p>
+                                    @else
+                                        <p class="leading-relaxed text-gray-900"> Internship </p>
+                                    @endif
+                                </div>
+                                <span class="md:flex-grow flex items-center justify-end">
+                                    <span>Applied: {{ \Carbon\Carbon::parse($info->applied_at)->diffForHumans() }}</span>
+                                </span>
+                            </div>
+                        </div>
+                    @endforeach
                 @endif
                 @if(Auth::user()->type_user == 'E') 
                     <div class="bg-white p-3 shadow-sm rounded-sm">
@@ -175,9 +209,15 @@
                     @foreach($anuncios as $anuncio)
                         <div class="pb-4 border-b border-gray-300 bg-white hover:bg-indigo-200 rounded-md mb-2">
                             <div class="relative">
-                                <a class="absolute w-5 h-5 text-red-500 right-4 top-2" href="{{ route('remove_anuncio', $anuncio->id) }}"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                                    </svg></a>
+                                <form class="absolute w-5 h-5 text-red-500 right-4 top-2" action="{{ route('remove_anuncio', $anuncio->id) }}" method="POST">
+                                @method('DELETE')
+                                @csrf
+                                    <button type="submit">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                        </svg>
+                                    </button>
+                                </form>
                             </div>
                             
                             <div class='py-6 px-4 flex flex-wrap md:flex-nowrap'>

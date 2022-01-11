@@ -4,6 +4,7 @@
 
     <div class="h-screen bg-gradient-to-b from-gray-500 to-violet-50 px-20 py-10 flex justify-center items-center w-full">
         <form method="POST" action="{{ route('login') }}" class="h-screen py-52">
+            @csrf
             <div class="bg-white px-10 py-8 rounded-xl w-screen shadow-md max-w-sm">
                 <div class="space-y-4">
                     <h1 class="text-center text-2xl font-semibold text-gray-600">{{ __('Login') }}</h1>

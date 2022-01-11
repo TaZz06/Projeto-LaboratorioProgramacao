@@ -14,7 +14,7 @@ class CreateApplicationsTable extends Migration
     public function up()
     {
         Schema::create('applications', function (Blueprint $table) {
-            $table->id();
+            $table->id()->onDelete('cascade');
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('anuncio_id');
             $table->string('comment');

@@ -10,12 +10,17 @@
                         <div class="w-full sm:w-auto sm:ml-auto mt-3 sm:mt-0"></div>
                     </div>
                     <div class="mt-5">
-                        <form method="POST"  action="{{ route('insert_anuncio') }}">
+                        <form method="POST" action="{{ route('insert_anuncio') }}">
                             @csrf
                             <div class="w-full flex flex-col mb-3">
                                 <label for="type" class="block mb-1 text-gray-600 font-semibold">Type</label>
-                                <select name="type" class="bg-indigo-50 px-4 py-2 outline-none rounded-md w-full " required="required">
-                                    <option value="">           </option>
+                                <select 
+                                id="select_anuncio_type" 
+                                name="type" 
+                                onclick="selected_option();"
+                                class="bg-indigo-50 px-4 py-2 outline-none rounded-md w-full " 
+                                required="required">
+                                    <option value="none">           </option>
                                     <option value="I">Internship</option>
                                     <option value="PI">Paid Internship</option>
                                     <option value="J">Job</option>
@@ -85,18 +90,15 @@
                                 @enderror
                             </div>
 
-                            <div class="md:flex md:flex-row md:space-x-4 w-full">
+                            <div id="salary" class="invisible md:flex md:flex-row md:space-x-4 w-full">
                                 <div class="w-full flex flex-col mb-3">
                                     <label for="salary" class="block mb-1 text-gray-600 font-semibold">{{ __('Salary') }}</label>
                                     <input 
-                                    id="salary" 
+                                    id="salary_input" 
                                     type="text" 
                                     name="salary"
                                     class="form-control @error('salary') is-invalid @enderror bg-indigo-50 px-4 py-2 outline-none rounded-md w-full" 
-                                    value="{{ old('salary') }}"
-                                    type="text" 
-                                    required="required" 
-                                    autocomplete="salary">
+                                    type="text">
                                     @error('salary')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -116,7 +118,26 @@
             </div>
         </div>
     </div>
+    <script>
+        function selected_option() {
+            var select = document.getElementById("select_anuncio_type");
+            var selected = select.value;
+            var salary_div = document.getElementById("salary");
+            var salary_input = document.getElementById("salary_input");
+            if(selected == 'I' || selected == 'none'){
+                if (salary_div.classList.contains("invisible") == false) {
+                    salary_div.classList.add("invisible");
+                    salary_input.value = '0';
+                }
+            }else{
+                salary_input.value = '0';
+                salary_div.classList.remove("invisible");
+            }
+        }
+    </script> 
 @endsection
+
+
 
 
 

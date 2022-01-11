@@ -31,8 +31,11 @@
                                     <strong>Company: </strong>{{ $user->name }}
                                 </p>
                                 @auth
-                                    @if(Auth::user()->type_user == 'C')
+                                    @if(Auth::user()->type_user == 'C' && $application_sent == false)
                                         <a onclick="openModal('mymodalcentered')" class="block text-center my-4 tracking-wide bg-white text-indigo-500 text-sm font-medium title-font py-2 border border-indigo-500 hover:bg-indigo-500 hover:text-white uppercase">Apply Now</a>
+                                    @endif
+                                    @if($application_sent == True)
+                                        <div class="block text-center my-4 tracking-wide bg-white text-green-500 text-sm font-medium title-font py-2 border border-green-500 hover:bg-green-500 hover:text-white uppercase">Already Applied</a>
                                     @endif
                                 @endauth
                                 @guest

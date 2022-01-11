@@ -5,6 +5,7 @@
         <section class="container px-5 py-12 mx-auto">
                 <div class="bg-cover bg-center mb-12" style="background-image: url('./h1_hero.jpg')"></div>
                     <form class="flex w-full justify-center items-end" action="{{ route ('search')}}" method="get">
+                        @csrf
                         <div class="relative mr-4 w-full lg:w-1/2 text-left">
                             <input type="text" name="pesquisa" value=" {{request()->get('pesquisa')}} " 
                             class="w-full bg-gray-100 bg-opacity-50 rounded focus:ring-2 focus:ring-indigo-200 focus:bg-transparent border border-gray-300 focus:border-indigo-500 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">

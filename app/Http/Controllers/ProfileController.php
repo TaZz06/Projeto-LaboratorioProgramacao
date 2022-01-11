@@ -19,13 +19,21 @@ class ProfileController extends Controller
         $user = User::getUserById(Auth::id());
         if($user->type_user == 'C'){
             $candidato = Candidato::getCandidatoById(Auth::id());
+            $infos = DB::table('applications')
+                ->leftjoin('users', 'users.id', '=', 'applications.user_id')
+                ->leftjoin('anuncios', 'anuncios.id', '=', 'applications.anuncio_id')
+                ->select('applications.*', 'applications.id as id', 'applications.user_id as user_id', 'applications.anuncio_id as anuncio_id', 'applications.anuncio_id as anuncio_id', 'users.name as user_name', 'anuncios.*', 'anuncios.id as idAnuncio', 'applications.created_at as applied_at')
+                ->get();
+                
+            if($infos){
+                return view('partials.profile')->with(compact('user','candidato', 'infos'));
+            }
             return view('partials.profile')->with(compact('user', 'candidato'));
         }
         else if ($user->type_user == 'E'){
             $empresa_id = Empresa::getEmpresaId(Auth::id());
             $empresa = Empresa::getEmpresaById($empresa_id);
             $photo = Photo::getPhotoById($empresa->logo_id);
-
 
             $anuncios = Anuncio::where('empresa_id', $empresa_id)->get();
             if($anuncios){

@@ -69,13 +69,13 @@
                         @auth
                             <a class="block px-4 py-2 text-sm text-gray-700" href="{{ route('profile') }} role="menuitem" tabindex="-1" id="user-menu-item-0" onclick="event.preventDefault();
                             document.getElementById('profile-form').submit();">{{ __('Profile') }}</a>
-                            <form id="profile-form" action="{{ route('profile') }}" method="POST" class="d-none">
+                            <form id="profile-form" action="{{ route('profile') }}" method="GET" class="d-none">
                                 @csrf
                             </form>
                         @if(Auth::user()->type_user == 'E') 
                             <a class="block px-4 py-2 text-sm text-gray-700" href="{{ route('insert_anuncio_form') }}" role="menuitem" tabindex="-1" id="user-menu-item-0" onclick="event.preventDefault();
                             document.getElementById('insertAnuncio-form').submit();">{{ __('Insert Ads') }}</a>
-                            <form id="insertAnuncio-form" action="{{ route('insert_anuncio_form') }}" method="POST" class="d-none">
+                            <form id="insertAnuncio-form" action="{{ route('insert_anuncio_form') }}" method="GET" class="d-none">
                                 @csrf
                             </form>
                         @endif

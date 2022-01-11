@@ -4,6 +4,8 @@
     <div class="bg-gray-100">
     <div class="container mx-auto my-5 p-5">
     <form method="POST" action="{{ route('edit_profile') }}" enctype="multipart/form-data" class="h-screen py-8">
+        @method('PUT')
+        @csrf
         <div class="md:flex no-wrap md:-mx-2 ">
             <div class="w-full md:w-3/12 md:mx-2">
                 <div class="bg-white p-3 border-t-4 border-blue-600">
