@@ -6,11 +6,13 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Laravel\Cashier\Billable;
 use Laravel\Sanctum\HasApiTokens;
+
 
 class User extends Authenticatable implements MustVerifyEmail
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable, Billable;
 
     /**
      * The attributes that are mass assignable.
@@ -51,6 +53,11 @@ class User extends Authenticatable implements MustVerifyEmail
     public function setRegistered($value)
     {
         $this->attributes['registered'] = $value;
+    }
+
+    public function setAdmin($value)
+    {
+        $this->attributes['is_Admin'] = $value;
     }
 
     public static function getUserById($user_id){

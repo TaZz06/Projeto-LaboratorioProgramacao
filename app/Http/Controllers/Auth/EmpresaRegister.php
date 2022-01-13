@@ -7,6 +7,9 @@ use Illuminate\Http\Request;
 use App\Models\Empresa;
 use App\Models\Photo;
 use App\Models\User;
+use App\Models\Anuncio;
+use App\Models\Application;
+
 use Illuminate\Support\Facades\Auth;
 
 class EmpresaRegister extends Controller
@@ -38,5 +41,31 @@ class EmpresaRegister extends Controller
         $user->save();
         
         return redirect()->route('home');
+    }
+
+    public function remove_empresa($empresa_id){
+        $empresa = Empresa::where('id', $empresa_id)->first();
+        $anuncios = Anuncio::where('empresa_id', $empresa->id)->get();
+        if($anuncios){
+            foreach ($anuncios  as $anuncio){
+                $applications = Application::where('anuncio_id', $anuncio->id)->get();
+                if($applications){
+                    foreach ($applications  as $application){
+                        $application->delete();
+                    }
+                }
+                $anuncio->delete();
+            }
+        }
+        if($empresa->logo_id != 1){
+            $photo = Photo::where('id', $empresa->logo_id)->first();
+            $photo_path = public_path().'/storage/images/'. $photo->path; 
+            unlink($photo_path);
+        }
+        $user = User::find($empresa->user_id);
+        $user->setRegistered(false);
+        $user->save();
+        $empresa->delete();
+        return redirect()->back();
     }
 }

@@ -22,6 +22,7 @@ class CreateAnuncio extends Migration
             $table->float('salary');
             $table->string('type'); 
             $table->string('city');
+            $table->boolean('is_highlighted')->default(false);
             $table->timestamps();
             $table->foreign('empresa_id')->references('id')->on('empresas');
         });

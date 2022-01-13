@@ -1,8 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-
-      
+    @include('layouts.alert')
     <div class="bg-no-repeat w-full h-screen relative" style="background-image: url(slogan_bg.jpg)">
         <div class="lg:w-3/4 grid grid-rows-1 gap-4">
             <h1 class="w-full pl-72 pt-40 font-bold antialiased font-sans text-5xl tracking-tight">We will help you<br>build your carreer,
@@ -24,35 +23,35 @@
         </div>
 
         <div class="-my-6 border-b border-gray-300 space-y-3 mb-10">
-                @foreach($infos as $info)
-                    <div class="py-6 px-4 flex flex-wrap md:flex-nowrap drop-shadow-md border-b border-gray-300 bg-white hover:bg-indigo-200 rounded-md">
-                        <div class="md:w-16 md:mb-0 mb-6 mr-4 flex-shrink-0 flex flex-col  ">
-                            @if($info->logo_id)
-                                <img src="{{asset('storage/images/'.$info->path)}}" class="w-16 h-16 rounded-full object-cover">
-                            @endif
-                        </div>
-                        <div class="md:w-1/2 mr-8 flex flex-col items-start justify-center">
-                            <a href="{{ route('show_anuncio', $info->id) }}"> 
-                                <h2 class="text-xl font-bold text-gray-900 title-font mb-1">{{ $info->workspace }}</h2>
-                            </a>
-                            <p class="leading-relaxed text-gray-900">
-                                {{ $info->name }} &mdash; <span class="text-gray-600">{{ $info->city }}</span>
-                            </p>
-                        </div>
-                        <div class="md:flex-grow mr-8 flex items-center justify-start">
-                            @if($info->type == 'J')
-                                <p class="leading-relaxed text-gray-900"> Job </p>
-
-                            @elseif($info->type == 'PI')
-                                <p class="leading-relaxed text-gray-900"> Paid Internship</p>
-                            @else
-                                <p class="leading-relaxed text-gray-900"> Internship </p>
-                            @endif
-                        </div>
-                        <span class="md:flex-grow flex items-center justify-end">
-                            <span>{{ \Carbon\Carbon::parse($info->created_at)->diffForHumans() }}</span>
-                        </span>
+            @foreach($infos as $info)
+                <div class="py-6 px-4 flex flex-wrap md:flex-nowrap drop-shadow-md border-b border-gray-300 {{ $info->is_highlighted ? 'bg-indigo-400 hover:bg-indigo-200' : 'bg-white hover:bg-indigo-200' }} rounded-md">
+                    <div class="md:w-16 md:mb-0 mb-6 mr-4 flex-shrink-0 flex flex-col  ">
+                        @if($info->logo_id)
+                            <img src="{{asset('storage/images/'.$info->path)}}" class="w-16 h-16 rounded-full object-cover">
+                        @endif
                     </div>
+                    <div class="md:w-1/2 mr-8 flex flex-col items-start justify-center">
+                        <a href="{{ route('show_anuncio', $info->id) }}"> 
+                            <h2 class="text-xl font-bold text-gray-900 title-font mb-1">{{ $info->workspace }}</h2>
+                        </a>
+                        <p class="leading-relaxed text-gray-900">
+                            {{ $info->name }} &mdash; <span class="text-gray-600">{{ $info->city }}</span>
+                        </p>
+                    </div>
+                    <div class="md:flex-grow mr-8 flex items-center justify-start">
+                        @if($info->type == 'J')
+                            <p class="leading-relaxed text-gray-900"> Job </p>
+
+                        @elseif($info->type == 'PI')
+                            <p class="leading-relaxed text-gray-900"> Paid Internship</p>
+                        @else
+                            <p class="leading-relaxed text-gray-900"> Internship </p>
+                        @endif
+                    </div>
+                    <span class="md:flex-grow flex items-center justify-end">
+                        <span>{{ \Carbon\Carbon::parse($info->created_at)->diffForHumans() }}</span>
+                    </span>
+                </div>
             @endforeach
         </div>	
         <div>

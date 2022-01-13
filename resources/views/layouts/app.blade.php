@@ -72,6 +72,13 @@
                             <form id="profile-form" action="{{ route('profile') }}" method="GET" class="d-none">
                                 @csrf
                             </form>
+                        @if(Auth::user()->is_admin == 1) 
+                            <a class="block px-4 py-2 text-sm text-gray-700" href="{{ route('admin_home') }}" role="menuitem" tabindex="-1" id="user-menu-item-0" onclick="event.preventDefault();
+                            document.getElementById('adminDashboard').submit();">{{ __('Admin Dashboard') }}</a>
+                            <form id="adminDashboard" action="{{ route('admin_home') }}" method="GET" class="d-none">
+                                @csrf
+                            </form>
+                        @endif
                         @if(Auth::user()->type_user == 'E') 
                             <a class="block px-4 py-2 text-sm text-gray-700" href="{{ route('insert_anuncio_form') }}" role="menuitem" tabindex="-1" id="user-menu-item-0" onclick="event.preventDefault();
                             document.getElementById('insertAnuncio-form').submit();">{{ __('Insert Ads') }}</a>

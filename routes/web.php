@@ -11,6 +11,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AnuncioController;
 use App\Http\Controllers\DownloadFileController;
 use App\Http\Controllers\ApplicationController;
+use App\Http\Controllers\AdminHomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,14 +32,20 @@ Route::get('/', function () {
 Auth::routes(['verify' => true]);
 
 Route::get('/home', [HomeController::class, 'index'])->name('home')->middleware('is_registered');
-Route::get('/admin/home', [HomeController::class, 'adminHome'])->name('admin.home')->middleware('is_admin');
 Route::get('/search', [HomeController::class, 'index'])->name('search');
+
+Route::get('/admin_home', [AdminHomeController::class, 'index'])->name('admin_home')->middleware('is_admin')->middleware('is_registered');
+Route::get('/users_dashboard', [AdminHomeController::class, 'users_dashboard'])->name('users_dashboard');
+Route::get('/candidates_dashboard', [AdminHomeController::class, 'candidates_dashboard'])->name('candidates_dashboard');
+Route::get('/companies_dashboard', [AdminHomeController::class, 'companies_dashboard'])->name('companies_dashboard');
+Route::get('/anuncios_dashboard', [AdminHomeController::class, 'anuncios_dashboard'])->name('anuncios_dashboard');
+Route::get('/applications_dashboard', [AdminHomeController::class, 'applications_dashboard'])->name('applications_dashboard');
 
 Route::post('/register_user', [RegisterController::class, 'create'])->name('register_user');
 Route::post('/register_candidato', [CandidatoRegister::class, 'create'])->name('register_candidato');
 Route::post('/register_empresa', [EmpresaRegister::class, 'create'])->name('register_empresa');
 
-Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
+Route::get('/profile', [ProfileController::class, 'index'])->name('profile')->middleware('is_registered');
 Route::get('/edit_profile_form', [ProfileController::class, 'edit_index'])->name('edit_profile_form');
 Route::put('/edit_profile', [ProfileController::class, 'edit_profile'])->name('edit_profile');
 Route::put('/edit_profile_photo/{photo_id}/{user_id}/', [ProfileController::class, 'edit_profile_photo'])->name('edit_photo');
@@ -56,3 +63,8 @@ Route::post('/apply_anuncio/{anuncio}/', [ApplicationController::class, 'applian
 Route::get('/edit_candidatura_form/{application}/{anuncio}/', [ApplicationController::class, 'edit_index'])->name('edit_candidatura_form');
 Route::put('/edit_candidatura/{anuncio}/', [ApplicationController::class, 'edit_candidatura'])->name('edit_candidatura');
 Route::delete('/remove_candidatura/{application}/', [ApplicationController::class, 'remove_application'])->name('remove_candidatura');
+
+Route::delete('/remove_candidato/{candidato}/', [CandidatoRegister::class, 'remove_candidato'])->name('remove_candidato');
+Route::delete('/remove_empresa/{empresa}/', [EmpresaRegister::class, 'remove_empresa'])->name('remove_empresa');
+Route::delete('/remove_user/{user}/', [AdminHomeController::class, 'remove_user'])->name('remove_user');
+Route::patch('/promote_demote_user/{user}/', [AdminHomeController::class, 'promote_demote_user'])->name('promote_demote_user');

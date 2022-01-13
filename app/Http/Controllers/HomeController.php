@@ -24,7 +24,9 @@ class HomeController extends Controller
             ->leftjoin('photos', 'photos.id', '=', 'empresas.logo_id')
             ->leftjoin('users','users.id', '=', 'empresas.user_id')
             ->select('anuncios.*', 'anuncios.id as id','empresas.logo_id as logo_id', 'photos.path', 'users.name')
-            ->where('city', 'like', '%'.$request['pesquisa'].'%')->orWhere('workspace', 'like', '%'.$request['pesquisa'].'%')->orWhere('users.name', 'like', '%'.$request['pesquisa'].'%')->paginate(10);
+            ->where('city', 'like', '%'.$request['pesquisa'].'%')->orWhere('workspace', 'like', '%'.$request['pesquisa'].'%')->orWhere('users.name', 'like', '%'.$request['pesquisa'].'%')
+            ->orderBy('is_highlighted', 'desc')
+            ->paginate(10);
         }
         else{
             $infos = DB::table('anuncios')
@@ -32,14 +34,9 @@ class HomeController extends Controller
             ->leftjoin('photos', 'photos.id', '=', 'empresas.logo_id')
             ->leftjoin('users','users.id', '=', 'empresas.user_id')
             ->select('anuncios.*', 'anuncios.id as id','empresas.logo_id as logo_id', 'photos.path', 'users.name')
+            ->orderBy('is_highlighted', 'desc')
             ->paginate(10);
         }
         return view('home', compact('infos'));
-    }
-
-
-    public function adminHome()
-    {
-        return view('adminhome');
     }
 }

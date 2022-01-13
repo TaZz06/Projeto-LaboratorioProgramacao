@@ -14,6 +14,8 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
+use App\Models\Application;
+use App\Models\Anuncio;
 
 class RegisterController extends Controller
 {
@@ -84,10 +86,10 @@ class RegisterController extends Controller
             'type_user' => $data['flexRadioDefault'],
             'registered' => false,
         ]);
+        
+        $newUser->createAsStripeCustomer();
+
         Auth::login($newUser);
         return redirect()->route('home');
     }
-    
-
-    
 }

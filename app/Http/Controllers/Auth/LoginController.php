@@ -53,7 +53,7 @@ class LoginController extends Controller
 
         if(auth()->attempt(array('email' => $input['email'], 'password' => $input['password']))){
             if (auth()->user()->is_admin ) {
-                return response()->view('admin.home');
+                return response()->view('layouts.admin_home');
             }else{
                 return redirect()->route('home');
             }

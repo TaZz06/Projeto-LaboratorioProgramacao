@@ -22,9 +22,9 @@ class Application extends Model
         $application = Application::where('user_id', $user_id)->where('anuncio_id', $anuncio_id)->first();
         return $application;
     }
-    public static function getApplicationByApplication($application_id)
+    public static function getAllApplicationByUserId($user_id)
     {
-        $application = Application::where('id', $application_id)->first();
-        return $application;
+        $applications = Application::where('user_id', $user_id)->get();
+        return $applications;
     }
 }

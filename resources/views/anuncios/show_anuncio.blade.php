@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
     @section('content')
-
+        @include('layouts.alert')
         <section class="text-gray-600 body-font overflow-hidden">
             <div class="relative min-h-screen top-20 items-center justify-center sm:px-10 lg:px-20 relative items-center">
                 <div class="w-full space-y-4 p-10 bg-white rounded-xl shadow-lg">

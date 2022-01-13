@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
+  @include('layouts.alert')
   <div class="bg-gradient-to-b from-gray-500 to-violet-50 px-20 py-10 flex justify-center items-center">
     <form method="POST" action="{{ route('register_user') }}" class="h-screen py-8">
       @csrf

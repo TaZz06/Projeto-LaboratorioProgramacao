@@ -11,6 +11,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
+
 class AnuncioController extends Controller
 {
     protected function indexInsertAnuncio(){
@@ -31,19 +32,36 @@ class AnuncioController extends Controller
             'salary' => ['numeric', 'min:0', 'max:9999.99'],
             'city' => ['required', 'string', 'max:255'],
             'type'=> ['required', 'string', 'max:2'],
+            'payment_method_id' => 'required'
         ]);
         
-        $newAnuncio=Anuncio::create([
-            'empresa_id' => Empresa::getEmpresaId(Auth::id()),
-            'workspace' => $request['workspace'],
-            'job_description' => $request['job_description'],
-            'desired_skills' => $request['desired_skills'],
-            'salary'=> $request['salary'],
-            'city' => $request['city'],
-            'type'=> $request['type'],
-        ]);
+        try {
+            $amount = 1500; // 15.00 EUR em centimos
+            if ($request->filled('is_highlighted')) {
+                $amount += 2000;// 20.00 EUR em centimos (acréscimo se desejar dar highlight)
+            }
+            $user = Auth::user();
+            
+            $user->createOrGetStripeCustomer();
+            
+            $user->charge($amount, $request->payment_method_id);
 
-        return redirect()->route('home');
+            $newAnuncio=Anuncio::create([
+                'empresa_id' => Empresa::getEmpresaId(Auth::id()),
+                'workspace' => $request['workspace'],
+                'job_description' => $request['job_description'],
+                'desired_skills' => $request['desired_skills'],
+                'salary'=> $request['salary'],
+                'city' => $request['city'],
+                'type'=> $request['type'],
+                'is_highlighted' => $request->filled('is_highlighted'),
+            ]);
+
+            return redirect()->route('home');
+        } catch(\Exception $e) {
+            return redirect()->back()
+                ->withErrors(['error' => $e->getMessage()]);
+        }
     }
 
     protected function show($anuncio_received){
@@ -75,12 +93,14 @@ class AnuncioController extends Controller
         return redirect('profile')->with('status', 'Opportunity updated!');
     }
     
-    protected function remove_anuncio($anuncio_id){
-        $applications = Application::getAllApplicationByAds($anuncio_id);
-        foreach ($applications  as $application){
-            $application->delete();
+    public function remove_anuncio($anuncio_id){
+        $applications = Application::where('anuncio_id', $anuncio_id)->get();
+        if($applications){
+            foreach ($applications  as $application){
+                $application->delete();
+            }
         }
         Anuncio::getAnuncioById($anuncio_id)->delete();
-        return redirect('profile');
+        return redirect()->back();
     }
 }

@@ -133,6 +133,6 @@ class ProfileController extends Controller
             ]);
             $empresa->save();
         }
-        return redirect()->route('profile')->with('status', 'Profile Picture Updated!');
+        return redirect()->route('profile')->with('success', 'Profile Picture Updated!');
     }
 }

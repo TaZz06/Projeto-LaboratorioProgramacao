@@ -31,7 +31,7 @@ class ApplicationController extends Controller
     
     public function remove_application($application_id){
         Application::where('id', $application_id)->delete();
-        return redirect('profile');
+        return redirect()->back();
     }
 
     public function edit_index($application_id, $anuncio_id){
@@ -62,7 +62,7 @@ class ApplicationController extends Controller
             ]);
             $application->save();
             
-            return redirect()->route('profile');
+            return redirect()->back();
         }
         else
             $updatedApplication = DB::table('applications')->where('user_id', $user_id)->where('anuncio_id', $anuncio_id)->update([
@@ -70,6 +70,6 @@ class ApplicationController extends Controller
             ]);
             $application->save();
 
-            return redirect()->route('profile');
+            return redirect()->back();
     }
 }

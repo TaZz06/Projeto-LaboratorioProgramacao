@@ -2,11 +2,7 @@
 
 @section('content')
     <div class="container mx-auto p-5 bg-gradient-to-b from-gray-500 to-violet-50 h-screen">
-        @if (session('status'))
-            <div class="border border-green-400 rounded-sm text-center bg-green-100 px-4 py-3 text-green-700 m-2">
-                {{ session('status') }}
-            </div>
-        @endif
+        @include('layouts.alert')
         <div class="md:flex no-wrap md:-mx-2 ">
             <div class="w-full md:w-3/12 md:mx-2">
                 <div class="bg-white p-3 border-t-4 border-blue-600">
