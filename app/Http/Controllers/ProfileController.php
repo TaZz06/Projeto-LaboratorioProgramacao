@@ -19,16 +19,19 @@ class ProfileController extends Controller
         $user = User::getUserById(Auth::id());
         if($user->type_user == 'C'){
             $candidato = Candidato::getCandidatoById(Auth::id());
+            $photo = Photo::getPhotoById($candidato->photo_id);
+
             $infos = DB::table('applications')
                 ->leftjoin('users', 'users.id', '=', 'applications.user_id')
                 ->leftjoin('anuncios', 'anuncios.id', '=', 'applications.anuncio_id')
-                ->select('applications.*', 'applications.id as id', 'applications.user_id as user_id', 'applications.anuncio_id as anuncio_id', 'applications.anuncio_id as anuncio_id', 'users.name as user_name', 'anuncios.*', 'anuncios.id as idAnuncio', 'applications.created_at as applied_at')
+                ->select('applications.*','applications.id as application_id', 'applications.user_id as user_id', 'applications.anuncio_id as anuncio_id', 'users.name as user_name', 'anuncios.*', 'anuncios.id as idAnuncio', 'applications.created_at as applied_at')
+                ->where('user_id', '=', Auth::id())
                 ->get();
                 
             if($infos){
-                return view('partials.profile')->with(compact('user','candidato', 'infos'));
+                return view('profile.profile')->with(compact('user','candidato', 'photo', 'infos'));
             }
-            return view('partials.profile')->with(compact('user', 'candidato'));
+            return view('profile.profile')->with(compact('user', 'candidato', 'photo'));
         }
         else if ($user->type_user == 'E'){
             $empresa_id = Empresa::getEmpresaId(Auth::id());
@@ -39,15 +42,15 @@ class ProfileController extends Controller
             if($anuncios){
                 $infos = DB::table('applications')
                 ->leftjoin('users', 'users.id', '=', 'applications.user_id')
-                ->select('applications.*', 'applications.id as id', 'applications.user_id as user_id', 'applications.anuncio_id as anuncio_id', 'users.name as user_name')
+                ->select('applications.*', 'applications.id as application_id', 'applications.user_id as user_id', 'applications.anuncio_id as anuncio_id', 'users.name as user_name')
                 ->get();
                 
                 if($infos){
-                    return view('partials.profile')->with(compact('user','empresa', 'photo', 'anuncios', 'infos'));
+                    return view('profile.profile')->with(compact('user','empresa', 'photo', 'anuncios', 'infos'));
                 }
-                return view('partials.profile')->with(compact('user','empresa', 'photo', 'anuncios'));
+                return view('profile.profile')->with(compact('user','empresa', 'photo', 'anuncios'));
             }
-            return view('partials.profile')->with(compact('user','empresa', 'photo'));
+            return view('profile.profile')->with(compact('user','empresa', 'photo'));
         }
     }
 
@@ -55,13 +58,13 @@ class ProfileController extends Controller
         $user = User::getUserById(Auth::id());
         if($user->type_user == 'C'){
             $candidato = Candidato::getCandidatoById(Auth::id());
-            return view('partials.edit_profile')->with(compact('user', 'candidato'));
+            return view('profile.edit_profile')->with(compact('user', 'candidato'));
         }
         else if ($user->type_user == 'E'){
             $empresa_id = Empresa::getEmpresaId(Auth::id());
             $empresa = Empresa::getEmpresaById($empresa_id);
             $photo = Photo::getPhotoById($empresa->logo_id);
-            return view('partials.edit_profile')->with(compact('user','empresa', 'photo'));
+            return view('profile.edit_profile')->with(compact('user','empresa', 'photo'));
         }
     }
 
@@ -84,36 +87,52 @@ class ProfileController extends Controller
                 'skills'=> $data['skills'],
             ]);
             $candidato->save();
-            $user = User::getUserById(Auth::id());
-            $candidato = Candidato::getCandidatoById(Auth::id());
-            return view('partials.profile')->with(compact('user', 'candidato'));
+            return redirect('profile')->with('status', 'Profile updated!');
         }
         else if ($user->type_user == 'E'){
             $empresa_id = Empresa::getEmpresaId(Auth::id());
             $empresa = Empresa::getEmpresaById($empresa_id);
-            $photo = Photo::getPhotoById($empresa->logo_id);
 
             $updateEmpresa = DB::table('empresas')->where('id', $empresa_id)->update([
                 'nif' => $data['nif'],
+                'description' => $data['description'],
             ]);
             $empresa->save();
-            
-            $empresa_id = Empresa::getEmpresaId(Auth::id());
-            $empresa = Empresa::getEmpresaById($empresa_id);
-            $photo = Photo::getPhotoById($empresa->logo_id);
-            $anuncios = Anuncio::where('empresa_id', $empresa_id)->get();
-            if($anuncios){
-                $infos = DB::table('applications')
-                ->leftjoin('users', 'users.id', '=', 'applications.user_id')
-                ->select('applications.*', 'applications.id as id', 'applications.user_id as user_id', 'applications.anuncio_id as anuncio_id', 'users.name as user_name')
-                ->get();
-                
-                if($infos){
-                    return view('partials.profile')->with(compact('user','empresa', 'photo', 'anuncios', 'infos'));
-                }
-                return view('partials.profile')->with(compact('user','empresa', 'photo', 'anuncios'));
-            }
-            return view('partials.profile')->with(compact('user','empresa', 'photo'));
+            return redirect('profile')->with('status', 'Profile Updated!');
         }
+    }
+
+    public function edit_profile_photo(Request $request, $photo_id, $user_id){
+        $request->validate([
+            'profile_pic' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048',
+        ]);
+
+        $name = $request->file('profile_pic')->getClientOriginalName();
+        $request->file('profile_pic')->store('public/images');
+
+        $picture = Photo::create([
+            'name' => $name,
+            'path' => $request->file('profile_pic')->hashName(),
+        ]);
+
+        $photo = Photo::where('id', $photo_id)->first();
+        $photo_path = public_path().'/storage/images/'. $photo->path; 
+        unlink($photo_path);
+
+        $user = User::where('id', $user_id)->first();
+        if($user->type_user == 'C'){
+            $candidato = Candidato::where('user_id', $user->id)->first();
+            $update_candidato = DB::table('candidatos')->where('user_id', $user_id)->update([
+                'photo_id' => $picture->id,
+            ]);
+            $candidato->save();
+        }elseif($user->type_user == 'E'){
+            $empresa = Empresa::where('user_id', $user->id)->first();
+            $update_empresa = DB::table('empresas')->where('user_id', $user_id)->update([
+                'logo_id' => $picture->id,
+            ]);
+            $empresa->save();
+        }
+        return redirect()->route('profile')->with('status', 'Profile Picture Updated!');
     }
 }

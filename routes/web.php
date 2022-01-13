@@ -10,6 +10,7 @@ use App\Http\Controllers\Auth\EmpresaRegister;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AnuncioController;
 use App\Http\Controllers\DownloadFileController;
+use App\Http\Controllers\ApplicationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,15 +39,20 @@ Route::post('/register_candidato', [CandidatoRegister::class, 'create'])->name('
 Route::post('/register_empresa', [EmpresaRegister::class, 'create'])->name('register_empresa');
 
 Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
-Route::put('/edit_profile', [ProfileController::class, 'edit_profile'])->name('edit_profile');
 Route::get('/edit_profile_form', [ProfileController::class, 'edit_index'])->name('edit_profile_form');
+Route::put('/edit_profile', [ProfileController::class, 'edit_profile'])->name('edit_profile');
+Route::put('/edit_profile_photo/{photo_id}/{user_id}/', [ProfileController::class, 'edit_profile_photo'])->name('edit_photo');
+
 Route::get('/download/{path}/', [DownloadFileController::class, 'downloadFile'])->name('download_cv');
 
 Route::get('/insert_anuncio_form', [AnuncioController::class, 'indexInsertAnuncio'])->name('insert_anuncio_form');
 Route::post('/insert_anuncio', [AnuncioController::class, 'insert_anuncio'])->name('insert_anuncio');
 Route::get('/anuncio/{anuncio}/', [AnuncioController::class, 'show'])->name('show_anuncio');
-Route::post('/apply_anuncio/{anuncio}/', [AnuncioController::class, 'appliance'])->name('apply_anuncio')->middleware('is_candidate');
+Route::get('/edit_anuncio_form/{anuncio}/', [AnuncioController::class, 'indexEditAnuncio'])->name('edit_anuncio_form');
+Route::put('/edit_anuncio/{anuncio}/', [AnuncioController::class, 'edit_anuncio'])->name('edit_anuncio');
 Route::delete('/remove_anuncio/{anuncio}/', [AnuncioController::class, 'remove_anuncio'])->name('remove_anuncio');
-Route::delete('/remove_candidatura/{application}/', [ApplicationController::class, ''])->name('remove_candidatura');
 
-
+Route::post('/apply_anuncio/{anuncio}/', [ApplicationController::class, 'appliance'])->name('apply_anuncio')->middleware('is_candidate');
+Route::get('/edit_candidatura_form/{application}/{anuncio}/', [ApplicationController::class, 'edit_index'])->name('edit_candidatura_form');
+Route::put('/edit_candidatura/{anuncio}/', [ApplicationController::class, 'edit_candidatura'])->name('edit_candidatura');
+Route::delete('/remove_candidatura/{application}/', [ApplicationController::class, 'remove_application'])->name('remove_candidatura');

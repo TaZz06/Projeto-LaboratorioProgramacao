@@ -2,18 +2,22 @@
 
 @section('content')
     <div class="container mx-auto p-5 bg-gradient-to-b from-gray-500 to-violet-50 h-screen">
+        @if (session('status'))
+            <div class="border border-green-400 rounded-sm text-center bg-green-100 px-4 py-3 text-green-700 m-2">
+                {{ session('status') }}
+            </div>
+        @endif
         <div class="md:flex no-wrap md:-mx-2 ">
             <div class="w-full md:w-3/12 md:mx-2">
                 <div class="bg-white p-3 border-t-4 border-blue-600">
-                <div class="image overflow-hidden">
-                    @if(Auth::user()->type_user == 'E') 
-                        <img src="{{asset('storage/images/'.$photo->path)}}" class="h-auto w-full mx-auto">
-                    @endif
-                    @if(Auth::user()->type_user == 'C') 
-                        <img class="h-auto w-full mx-auto" src="storage/images/default_user.png" alt="">
-                    @endif
+                <div class="image overflow-hidden relative">
+                    <img src="{{asset('storage/images/'.$photo->path)}}" class="h-auto w-full mx-auto">
+                    <a class="absolute h-4 w-4 right-0 top-0" onclick="openModal('mymodalcentered')">
+                        <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 absolute" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                        </svg>
+                    </a>
                 </div>
-                <h1 class="text-gray-900 font-bold text-xl leading-8 my-1">{{''}}</h1>
                 <ul
                     class="bg-gray-100 text-gray-600 hover:text-gray-700 hover:shadow py-2 px-3 mt-3 divide-y rounded shadow-sm">
                     <li class="flex items-center py-3">
@@ -84,7 +88,7 @@
                             </div>
                             <ul class="list-inside space-y-2">
                                 <li>
-                                <div class="text-teal-600">{{$candidato->professional_experience}}</div>
+                                <div class="text-teal-600">{!! nl2br($candidato->professional_experience) !!}</div>
                                 </li>
                             </ul>
                         </div>
@@ -104,7 +108,7 @@
                             </div>
                             <ul class="list-inside space-y-2">
                                 <li>
-                                <div class="text-teal-600">{{ $candidato->profissional_area }}</div>
+                                <div class="text-teal-600">{!! nl2br($candidato->profissional_area) !!}</div>
                                 </li>
                             </ul>
                         </div>
@@ -121,7 +125,7 @@
                             </div>
                             <ul class="list-inside space-y-2">
                                 <li>
-                                <div class="text-teal-600">{{$candidato->schooling}}</div>
+                                <div class="text-teal-600">{!! nl2br($candidato->schooling) !!}</div>
                                 </li>
                             </ul>
                         </div>
@@ -138,21 +142,39 @@
                             </div>
                             <ul class="list-inside space-y-2">
                                 <li>
-                                <div class="text-teal-600">{{$candidato->skills}}</div>
+                                <div class="text-teal-600">{!! nl2br($candidato->skills) !!}</div>
                                 </li>
                             </ul>
                         </div>
                     </div>
                     </div>
+                    <div class="mb-4 mt-4">
+                        <h2 class="text-xl font-bold text-gray-900 title-font px-2">Applications Sent: ( {{ $infos->count() }} )</h2>
+                    </div>
                     @foreach($infos as $info)
                         <div class="border-b border-gray-300 bg-white hover:bg-indigo-200 rounded-md mb-2">
-                            <div class="relative">
-                                <a class="absolute w-5 h-5 text-red-500 right-4 top-2" href="{{ route('remove_candidatura', $info->idAnuncio) }}"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                                    </svg>
-                                </a>
+                            <div class="relative flex">
+                                <div class="flex">
+                                    <form class="absolute h-6 w-6 right-12 top-2" action="{{ route('edit_candidatura_form', [$info->application_id, $info->idAnuncio]) }}" method="GET">
+                                        <button type="submit">
+                                            <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 absolute" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                                            </svg></a>
+                                        </button>
+                                    </form>
+                                </div>
+                                <div class="flex">
+                                    <form class="absolute w-5 h-5 text-red-500 right-4 top-2" action="{{ route('remove_candidatura', $info->application_id) }}" method="POST">
+                                        @method('DELETE')
+                                        @csrf
+                                        <button type="submit">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                            </svg>
+                                        </button>
+                                    </form>
+                                </div>
                             </div>
-                            
                             <div class='py-6 px-4 flex flex-wrap md:flex-nowrap'>
                                 <div class="md:w-1/2 mr-8 flex flex-col items-start justify-center">
                                     <a href="{{ route('show_anuncio', $info->idAnuncio) }}"> 
@@ -185,17 +207,33 @@
                         <div>
                             <div class="flex items-center space-x-2 font-semibold text-gray-900 leading-8 mb-3">
                                 <span clas="text-green-500">
+                                    <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                                    </svg>
+                                </span>
+                                <span class="tracking-wide">NIF</span>
+                            </div>
+                            <ul class="list-inside space-y-2">
+                                <li>
+                                    <div class="text-teal-600">{{$empresa->nif}}</div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div>
+                            <div class="flex items-center space-x-2 font-semibold text-gray-900 leading-8 mb-3">
+                                <span clas="text-green-500">
                                 <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                     stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                         d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                                 </svg>
                                 </span>
-                                <span class="tracking-wide">NIF</span>
+                                <span class="tracking-wide">Description</span>
                             </div>
                             <ul class="list-inside space-y-2">
                                 <li>
-                                <div class="text-teal-600">{{$empresa->nif}}</div>
+                                    <div class="text-teal-600">{!! nl2br($empresa->description) !!}</div>
                                 </li>
                             </ul>
                         </div>
@@ -203,21 +241,34 @@
                     </div>
 
                     <div class="mb-4 mt-4">
-                        <h2 class="text-xl font-bold text-gray-900 title-font px-4">Advertisements Created: ( {{ $anuncios->count() }} )</h2>
+                        <h2 class="text-xl font-bold text-gray-900 title-font px-2">Opportunities Created: ( {{ $anuncios->count() }} )</h2>
                     </div>
 
                     @foreach($anuncios as $anuncio)
                         <div class="pb-4 border-b border-gray-300 bg-white hover:bg-indigo-200 rounded-md mb-2">
-                            <div class="relative">
-                                <form class="absolute w-5 h-5 text-red-500 right-4 top-2" action="{{ route('remove_anuncio', $anuncio->id) }}" method="POST">
-                                @method('DELETE')
-                                @csrf
-                                    <button type="submit">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                                        </svg>
-                                    </button>
-                                </form>
+                            <div class="relative flex">
+                                <div class="flex">
+                                    <form class="absolute h-6 w-6 right-12 top-2" action="{{ route('edit_anuncio_form', $anuncio->id) }} method="POST">
+                                        @method('PUT')
+                                        @csrf
+                                        <button type="submit">
+                                            <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 absolute" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                                            </svg></a>
+                                        </button>
+                                    </form>
+                                </div>
+                                <div class="flex">
+                                    <form class="absolute w-5 h-5 text-red-500 right-4 top-2" action="{{ route('remove_anuncio', $anuncio->id) }}" method="POST">
+                                    @method('DELETE')
+                                    @csrf
+                                        <button type="submit">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                            </svg>
+                                        </button>
+                                    </form>
+                                </div>
                             </div>
                             
                             <div class='py-6 px-4 flex flex-wrap md:flex-nowrap'>
@@ -267,4 +318,51 @@
             </div>
         </div>
     </div>
+
+    <dialog id="mymodalcentered" class="bg-transparent z-0 relative w-screen h-screen">
+        <div class="p-7 flex justify-center items-center fixed left-0 top-0 w-full h-full bg-gray-900 bg-opacity-50 z-50 transition-opacity duration-300 opacity-0">
+            <form method="POST" action="{{ route('edit_photo', [$photo->id, $user->id]) }}" enctype="multipart/form-data" class="h-screen py-52">
+                @method('PUT')
+                @csrf
+                <div class="bg-white px-10 py-8 rounded-xl w-screen shadow-md max-w-sm relative">
+                    <a class="absolute h-5 w-5 right-4 top-4" onclick="modalClose('mymodalcentered')">
+                        <svg xmlns="http://www.w3.org/2000/svg"  fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </a>
+                    <div class="space-y-4">
+                        <h2 class="text-2xl font-medium text-gray-900 title-font">{{ __('Change Profile Picture') }}</h2>
+                        <div class="-my-6">
+                            <div class="py-6">  
+                                <input type="file" name="profile_pic">
+                                    @error('profile_pic')
+                                        <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
+                                    @enderror
+                            </div> 
+                            <button class="mt-2 w-full bg-gradient-to-tr from-blue-600 to-indigo-600 text-indigo-100 py-2 rounded-md text-lg tracking-wide">{{ __('Apply') }}</button>
+                        </div>
+                    </div>
+                </div> 
+            </form>
+        </div>
+    </dialog>
+    
+    <script>
+        function openModal(key) {
+            document.getElementById(key).showModal(); 
+            document.body.setAttribute('style', 'overflow: hidden;'); 
+            document.getElementById(key).children[0].scrollTop = 0; 
+            document.getElementById(key).children[0].classList.remove('opacity-0'); 
+            document.getElementById(key).children[0].classList.add('opacity-100')
+        }
+    
+        function modalClose(key) {
+            document.getElementById(key).children[0].classList.remove('opacity-100');
+            document.getElementById(key).children[0].classList.add('opacity-0');
+            setTimeout(function () {
+                document.getElementById(key).close();
+                document.body.removeAttribute('style');
+            }, 100);
+        }
+    </script>
 @endsection

@@ -17,6 +17,7 @@ class CreateEmpresa extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->integer('nif')->unique();
+            $table->string('description')->nullable();
             $table->unsignedBigInteger('logo_id')->default(1);
             $table->timestamps(); 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');

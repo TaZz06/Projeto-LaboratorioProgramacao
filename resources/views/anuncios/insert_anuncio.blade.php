@@ -125,12 +125,12 @@
             var salary_div = document.getElementById("salary");
             var salary_input = document.getElementById("salary_input");
             if(selected == 'I' || selected == 'none'){
+                salary_input.value = '0';
                 if (salary_div.classList.contains("invisible") == false) {
                     salary_div.classList.add("invisible");
-                    salary_input.value = '0';
                 }
             }else{
-                salary_input.value = '0';
+                salary_input.value = ' ';
                 salary_div.classList.remove("invisible");
             }
         }

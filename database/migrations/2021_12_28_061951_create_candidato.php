@@ -16,12 +16,14 @@ class CreateCandidato extends Migration
         Schema::create('candidatos', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
-            $table->foreign('user_id')->references('id')->on('users');
             $table->string('profissional_area');
             $table->string('schooling');
             $table->string('professional_experience');
             $table->string('skills');
+            $table->unsignedBigInteger('photo_id')->default(1);
             $table->timestamps();
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('photo_id')->references('id')->on('photos');
         });
     }
 

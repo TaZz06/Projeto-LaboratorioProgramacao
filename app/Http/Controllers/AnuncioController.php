@@ -9,11 +9,17 @@ use App\Models\Empresa;
 use App\Models\Photo;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class AnuncioController extends Controller
 {
     protected function indexInsertAnuncio(){
         return view('anuncios.insert_anuncio');
+    }
+
+    protected function indexEditAnuncio($anuncio_id){
+        $anuncio = Anuncio::where('id', $anuncio_id)->first();
+        return view('anuncios.edit_anuncio')->with(compact('anuncio'));
     }
 
     protected function insert_anuncio(Request $request)
@@ -55,24 +61,25 @@ class AnuncioController extends Controller
         return view('anuncios.show_anuncio')->with(compact('anuncio', 'empresa', 'user', 'photo', 'application_sent'));  
     }
 
-    public function appliance(Request $request, $anuncio){
-        $request->validate([
-            'pdf' => 'required|mimes:pdf|max:100000',
+    protected function edit_anuncio(Request $request, $anuncio_id){
+        $anuncio = Anuncio::getAnuncioById($anuncio_id);
+        $updateAnuncio = DB::table('anuncios')->where('id', $anuncio_id)->update([
+            'workspace' => $request['workspace'],
+            'job_description' => $request['job_description'],
+            'desired_skills' => $request['desired_skills'],
+            'salary'=> $request['salary'],
+            'city' => $request['city'],
+            'type'=> $request['type'],
         ]);
-        $name = $request->file('pdf')->getClientOriginalName();
-        $request->file('pdf')->store('public/pdf');
-
-        $newApplication = Application::create([
-            'user_id' => Auth::id(),
-            'anuncio_id' => $anuncio,
-            'comment' => $request->comment,
-            'pdf_name'=> $name,
-            'pdf_path'=> $request->file('pdf')->hashName(),
-        ]);
-        
-        return redirect()->back();
+        $anuncio->save();
+        return redirect('profile')->with('status', 'Opportunity updated!');
     }
-    public function remove_anuncio($anuncio_id){
+    
+    protected function remove_anuncio($anuncio_id){
+        $applications = Application::getAllApplicationByAds($anuncio_id);
+        foreach ($applications  as $application){
+            $application->delete();
+        }
         Anuncio::getAnuncioById($anuncio_id)->delete();
         return redirect('profile');
     }

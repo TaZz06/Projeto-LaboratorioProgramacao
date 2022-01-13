@@ -17,7 +17,6 @@ class Anuncio extends Model
         'salary',
         'type',
         'city',
-        'candidates',
     ];
 
     public static function getAnuncioById($anuncio_id){

@@ -16,9 +16,15 @@ class Application extends Model
         'pdf_name',
         'pdf_path',
     ];
+
     public static function getApplicationByUserIdAnuncioId($user_id, $anuncio_id)
     {
         $application = Application::where('user_id', $user_id)->where('anuncio_id', $anuncio_id)->first();
+        return $application;
+    }
+    public static function getApplicationByApplication($application_id)
+    {
+        $application = Application::where('id', $application_id)->first();
         return $application;
     }
 }

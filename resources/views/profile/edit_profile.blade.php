@@ -208,7 +208,7 @@
                 @endif
                 @if(Auth::user()->type_user == 'E') 
                     <div class="bg-white p-3 shadow-sm rounded-sm">
-                    <div class="grid grid-cols-2">
+                    <div class="grid grid-cols-2 gap-4">
                         <div>
                             <div class="flex items-center space-x-2 font-semibold text-gray-900 leading-8 mb-3">
                                 <span clas="text-green-500">
@@ -223,6 +223,28 @@
                             <ul class="list-inside space-y-2">
                                 <li>
                                 <input id="nif" type="text" class="form-control bg-indigo-50 px-4 py-2 outline-none rounded-md w-full" name="nif" value="{{ ($empresa->nif) }}" required autocomplete="nif">
+                                </li>
+                            </ul>
+                        </div>
+                        <div>
+                            <div class="flex items-center space-x-2 font-semibold text-gray-900 leading-8 mb-3">
+                                <span clas="text-green-500">
+                                <svg class="h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                                </svg>
+                                </span>
+                                <span class="tracking-wide">Description</span>
+                            </div>  
+                            <ul class="list-inside space-y-2">
+                                <li>
+                                    <textarea 
+                                    id="description" 
+                                    type="text" 
+                                    class="w-full min-h-[100px] max-h-[300px] h-28 appearance-none block w-full bg-indigo-50 px-4 py-2 outline-none rounded-md text-grey-darker border border-grey-lighter form-control @error('description') is-invalid @enderror" 
+                                    name="description" 
+                                    autocomplete="description">{{ $empresa->description }}</textarea>
                                 </li>
                             </ul>
                         </div>

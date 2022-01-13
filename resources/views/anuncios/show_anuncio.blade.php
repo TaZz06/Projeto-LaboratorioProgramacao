@@ -14,10 +14,10 @@
                         <div class="flex flex-wrap md:flex-nowrap">
                             <div class="content w-full md:w-3/4 pr-4 leading-relaxed text-base">
                                 <h2 class="py-4 text-xl text-gray-800"> Job Description </h2>
-                                {!! $anuncio->job_description !!}
+                                {!! nl2br($anuncio->job_description) !!}
                                 
                                 <h2 class="py-4 text-xl text-gray-800"> Required Knowledge, Skills, and Abilities </h2>
-                                {!! $anuncio->desired_skills !!}
+                                {!! nl2br($anuncio->desired_skills) !!}
                                 
                                 @if($anuncio->type == 'J' || $anuncio->type == 'PI')
                                     <h2 class="py-4 text-xl text-gray-800"> Estimated Salary: </h2>  
@@ -28,7 +28,8 @@
                                 <img src="{{asset('storage/images/'.$photo->path)}}" class="max-w-full mb-4">
                                 <p class="leading-relaxed text-base">
                                     <strong>Location: </strong>{{ $anuncio->city }}<br>
-                                    <strong>Company: </strong>{{ $user->name }}
+                                    <strong>Company: </strong>{{ $user->name }}<br>
+                                    <strong>Description: </strong><br>{!! nl2br($empresa->description) !!}
                                 </p>
                                 @auth
                                     @if(Auth::user()->type_user == 'C' && $application_sent == false)

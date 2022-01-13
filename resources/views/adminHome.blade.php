@@ -12,11 +12,10 @@
                 
                 <div class="card-body">
                     @if ($message = Session::get('status'))
-                    <div class="alert alert-success">
-                        <p>{{ $message }}</p>
-                    </div>
+                        <div class="alert alert-success">
+                            <p>{{ $message }}</p>
+                        </div>
                     @endif
-                    @include('partials.upload')
                 </div>
             </div>
         </div>
