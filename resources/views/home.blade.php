@@ -3,7 +3,7 @@
 @section('content')
 
       
-    <div class="mb-8 bg-no-repeat w-full h-screen relative" style="background-image: url(slogan_bg.jpg)">
+    <div class="bg-no-repeat w-full h-screen relative" style="background-image: url(slogan_bg.jpg)">
         <div class="lg:w-3/4 grid grid-rows-1 gap-4">
             <h1 class="w-full pl-72 pt-40 font-bold antialiased font-sans text-5xl tracking-tight">We will help you<br>build your carreer,
                 <p class="w-full font-bold pt-16 antialiased font-sans text-7xl tracking-tight text-indigo-700">Step By Step</p>
@@ -18,43 +18,46 @@
             </form>
         </div>
     </div>
-    <section class="container px-5 py-1 mx-auto relative flow-root">      
-    <div class="mb-12">
-        <h2 class="text-2xl font-medium text-white title-font px-4">Opportunities: ( {{ $infos->count() }} )</h2>
-    </div>
+    <section class="container px-5 py-1 mx-auto relative flow-root bg-zinc-400 rounded-tl-lg rounded-tr-lg">      
+        <div class="mb-12">
+            <h2 class="text-2xl pt-4 font-bold text-zinc-700 title-font tracking-tight px-4">Opportunities: ( {{ $infos->total() }} )</h2>
+        </div>
 
-    <div class="-my-6 border-b border-gray-300 space-y-3">
-            @foreach($infos as $info)
-                <div class="py-6 px-4 flex flex-wrap md:flex-nowrap border-b border-gray-300 bg-white hover:bg-indigo-200 rounded-md">
-                    <div class="md:w-16 md:mb-0 mb-6 mr-4 flex-shrink-0 flex flex-col  ">
-                        @if($info->logo_id)
-                            <img src="{{asset('storage/images/'.$info->path)}}" class="w-16 h-16 rounded-full object-cover">
-                        @endif
-                    </div>
-                    <div class="md:w-1/2 mr-8 flex flex-col items-start justify-center">
-                        <a href="{{ route('show_anuncio', $info->id) }}"> 
-                            <h2 class="text-xl font-bold text-gray-900 title-font mb-1">{{ $info->workspace }}</h2>
-                        </a>
-                        <p class="leading-relaxed text-gray-900">
-                            {{ $info->name }} &mdash; <span class="text-gray-600">{{ $info->city }}</span>
-                        </p>
-                    </div>
-                    <div class="md:flex-grow mr-8 flex items-center justify-start">
-                        @if($info->type == 'J')
-                            <p class="leading-relaxed text-gray-900"> Job </p>
+        <div class="-my-6 border-b border-gray-300 space-y-3 mb-10">
+                @foreach($infos as $info)
+                    <div class="py-6 px-4 flex flex-wrap md:flex-nowrap drop-shadow-md border-b border-gray-300 bg-white hover:bg-indigo-200 rounded-md">
+                        <div class="md:w-16 md:mb-0 mb-6 mr-4 flex-shrink-0 flex flex-col  ">
+                            @if($info->logo_id)
+                                <img src="{{asset('storage/images/'.$info->path)}}" class="w-16 h-16 rounded-full object-cover">
+                            @endif
+                        </div>
+                        <div class="md:w-1/2 mr-8 flex flex-col items-start justify-center">
+                            <a href="{{ route('show_anuncio', $info->id) }}"> 
+                                <h2 class="text-xl font-bold text-gray-900 title-font mb-1">{{ $info->workspace }}</h2>
+                            </a>
+                            <p class="leading-relaxed text-gray-900">
+                                {{ $info->name }} &mdash; <span class="text-gray-600">{{ $info->city }}</span>
+                            </p>
+                        </div>
+                        <div class="md:flex-grow mr-8 flex items-center justify-start">
+                            @if($info->type == 'J')
+                                <p class="leading-relaxed text-gray-900"> Job </p>
 
-                        @elseif($info->type == 'PI')
-                            <p class="leading-relaxed text-gray-900"> Paid Internship</p>
-                        @else
-                            <p class="leading-relaxed text-gray-900"> Internship </p>
-                        @endif
+                            @elseif($info->type == 'PI')
+                                <p class="leading-relaxed text-gray-900"> Paid Internship</p>
+                            @else
+                                <p class="leading-relaxed text-gray-900"> Internship </p>
+                            @endif
+                        </div>
+                        <span class="md:flex-grow flex items-center justify-end">
+                            <span>{{ \Carbon\Carbon::parse($info->created_at)->diffForHumans() }}</span>
+                        </span>
                     </div>
-                    <span class="md:flex-grow flex items-center justify-end">
-                        <span>{{ \Carbon\Carbon::parse($info->created_at)->diffForHumans() }}</span>
-                    </span>
-                </div>
-        @endforeach
-    </div>	
-</section>
+            @endforeach
+        </div>	
+        <div>
+            {!! $infos->links(); !!}
+        </div>
+    </section>
 
 @endsection
