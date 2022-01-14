@@ -1,8 +1,8 @@
 @extends('layouts.admin_home')
 
 @section('content')
-    @include('layouts.alert')
     <div class="flex flex-col w-full mt-8 -my-2 py-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
+        @include('layouts.alert')
         <div class="align-middle inline-block min-w-full shadow overflow-hidden sm:rounded-lg border-b border-gray-200">
             <h3 class="pl-5 text-gray-700 text2xl font-medium">Companies Dashboard</h3>
             <table class="min-w-full">
@@ -21,7 +21,9 @@
                             <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
                                 <div class="flex items-center">
                                     <div class="flex-shrink-0 h-10 w-10">
-                                        <img class="h-10 w-10 rounded-full" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=facearea&amp;facepad=2&amp;w=256&amp;h=256&amp;q=80" alt="">
+                                        @if($info->logo_id)
+                                        <img src="{{asset('storage/images/'.$info->path)}}" class="w-10 h-10 rounded-full object-cover">
+                                        @endif
                                     </div>
 
                                     <div class="ml-4">

@@ -1,8 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
-    @include('layouts.alert')
     <div class="bg-no-repeat w-full h-screen relative" style="background-image: url(slogan_bg.jpg)">
+        @include('layouts.alert')
         <div class="lg:w-3/4 grid grid-rows-1 gap-4">
             <h1 class="w-full pl-72 pt-40 font-bold antialiased font-sans text-5xl tracking-tight">We will help you<br>build your carreer,
                 <p class="w-full font-bold pt-16 antialiased font-sans text-7xl tracking-tight text-indigo-700">Step By Step</p>

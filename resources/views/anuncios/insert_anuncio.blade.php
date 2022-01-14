@@ -22,12 +22,16 @@
                                 onclick="selected_option();"
                                 class="bg-indigo-50 px-4 py-2 outline-none rounded-md w-full " 
                                 required="required">
-                                    <option value="none">           </option>
+                                    <option value="">           </option>
                                     <option value="I">Internship</option>
                                     <option value="PI">Paid Internship</option>
                                     <option value="J">Job</option>
                                 </select>
-                                <p class="text-sm text-red-500 hidden mt-3" id="error">Please fill out this field.</p>
+                                @error('type')
+                                    <span class="invalid-feedback text-red-500" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                             </div>
 
                             <div class="w-full flex flex-col mb-3">
@@ -42,7 +46,7 @@
                                 required="required"
                                 autocomplete="workspace">
                                 @error('workspace')
-                                    <span class="invalid-feedback" role="alert">
+                                    <span class="invalid-feedback text-red-500" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
@@ -56,6 +60,11 @@
                                 required="required" 
                                 name="city" 
                                 id="city">
+                                @error('city')
+                                    <span class="invalid-feedback text-red-500" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                             </div>
 
                             <div class="flex-auto w-full mb-1 space-y-2">
@@ -69,7 +78,7 @@
                                     required="required"
                                     autocomplete="job_description"></textarea>
                                 @error('job_description')
-                                    <span class="invalid-feedback" role="alert">
+                                    <span class="text-red-500" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
@@ -86,7 +95,7 @@
                                     required="required"
                                     autocomplete="desired_skills"></textarea>
                                 @error('desired_skills')
-                                    <span class="invalid-feedback" role="alert">
+                                    <span class="text-red-500" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
@@ -102,7 +111,7 @@
                                     class="form-control @error('salary') is-invalid @enderror bg-indigo-50 px-4 py-2 outline-none rounded-md w-full" 
                                     type="text">
                                     @error('salary')
-                                        <span class="invalid-feedback" role="alert">
+                                        <span class="text-red-500" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
                                     @enderror

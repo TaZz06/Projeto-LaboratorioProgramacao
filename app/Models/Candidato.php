@@ -21,6 +21,7 @@ class Candidato extends Model
         'schooling',
         'professional_experience',
         'skills',
+        'photo_id',
     ];
 
     public static function getCandidatoById($user_id)

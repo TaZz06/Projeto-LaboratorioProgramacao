@@ -14,7 +14,7 @@
             name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
 
             @error('name')
-                <span class="invalid-feedback" role="alert">
+                <span class="invalid-feedback text-red-500" role="alert">
                     <strong>{{ $message }}</strong>
                 </span>
             @enderror
@@ -26,7 +26,7 @@
             name="email" value="{{ old('email') }}" required autocomplete="email">
 
             @error('email')
-                <span class="invalid-feedback" role="alert">
+                <span class="invalid-feedback text-red-500" role="alert">
                   <strong>{{ $message }}</strong>
                 </span>
             @enderror
@@ -38,7 +38,7 @@
             name="address" value="{{ old('address') }}" required autocomplete="address">
 
             @error('address')
-                <span class="invalid-feedback" role="alert">
+                <span class="invalid-feedback text-red-500" role="alert">
                     <strong>{{ $message }}</strong>
                 </span>
             @enderror
@@ -50,7 +50,7 @@
             name="contact" value="{{ old('contact') }}" required autocomplete="contact">
 
             @error('contact')
-                <span class="invalid-feedback" role="alert">
+                <span class="invalid-feedback text-red-500" role="alert">
                     <strong>{{ $message }}</strong>
                 </span>
             @enderror
@@ -62,7 +62,7 @@
             name="password" required autocomplete="new-password">
 
             @error('password')
-                <span class="invalid-feedback" role="alert">
+                <span class="invalid-feedback text-red-500" role="alert">
                     <strong>{{ $message }}</strong>
                 </span>
             @enderror
@@ -74,12 +74,22 @@
           </div>
 
           <div>
-            <input class="form-check-input bg-indigo-50 px-2 py-2 outline-none rounded-md" type="radio" name="flexRadioDefault" id="radiochoice1" value="C">
+            <input class="form-check-input bg-indigo-50 px-2 py-2 outline-none rounded-md" type="radio" name="flexRadioDefault" id="radiochoice1" value="C" required autocomplete="type_user">
             <label class="form-check-label text-gray-600 font-semibold" for="flexRadioDefault1">Candidato</label>
+            @error('type_user')
+                <span class="invalid-feedback text-red-500" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+            @enderror
           </div>
           <div>
-            <input class="form-check-input bg-indigo-50 px-2 py-2 outline-none rounded-md" type="radio" name="flexRadioDefault" id="radiochoice2" value="E">
+            <input class="form-check-input bg-indigo-50 px-2 py-2 outline-none rounded-md" type="radio" name="flexRadioDefault" id="radiochoice2" value="E" required autocomplete="type_user">
             <label class="form-check-label text-gray-600 font-semibold" for="flexRadioDefault2">Empresa</label>
+            @error('type_user')
+                <span class="invalid-feedback text-red-500" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+            @enderror
           </div>
         </div>
         <button class="mt-4 w-full bg-gradient-to-tr from-blue-600 to-indigo-600 text-indigo-100 py-2 rounded-md text-lg tracking-wide">{{ __('Register') }}</button>

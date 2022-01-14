@@ -73,8 +73,8 @@
                                             name="comment" 
                                             value="{{ old('comment') }}"></textarea>
                                         @error('comment')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
+                                            <span class="text-red-500" role="alert">
+                                                {{ $message }}
                                             </span>
                                         @enderror
                                     </div> 
@@ -82,7 +82,7 @@
                                 <div class="py-6">  
                                     <input type="file" name="pdf" placeholder="Choose pdf" id="pdf">
                                         @error('pdf')
-                                            <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
+                                            <div class="text-red-500 mt-1 mb-1">{{ $message }}</div>
                                         @enderror
                                 </div> 
                                 <button class="mt-2 w-full bg-gradient-to-tr from-blue-600 to-indigo-600 text-indigo-100 py-2 rounded-md text-lg tracking-wide">{{ __('Apply') }}</button>

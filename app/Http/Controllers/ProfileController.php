@@ -69,6 +69,14 @@ class ProfileController extends Controller
     }
 
     public function edit_profile(Request $data){
+        $data->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'address' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255'],
+            'contact'=> ['required', 'string', 'min:9'],
+        ]);
+
+
         $user = User::getUserById(Auth::id());
         $updateUser = DB::table('users')->where('id', $user->id)->update([
             'name' => $data['name'],
@@ -79,6 +87,13 @@ class ProfileController extends Controller
         $user->save();
         
         if($user->type_user == 'C'){
+            $data->validate([
+                'profissional_area'=> ['required', 'string', 'max:255'],
+                'schooling'=> ['required', 'string', 'max:255'],
+                'professional_experience'=> ['required', 'string', 'max:255'],
+                'skills'=> ['required', 'string', 'max:255'],
+            ]);
+
             $candidato = Candidato::getCandidatoById(Auth::id());
             $updateCandidato = DB::table('candidatos')->where('id', $candidato->id)->update([
                 'profissional_area' => $data['profissional_area'],
@@ -87,9 +102,12 @@ class ProfileController extends Controller
                 'skills'=> $data['skills'],
             ]);
             $candidato->save();
-            return redirect('profile')->with('status', 'Profile updated!');
         }
         else if ($user->type_user == 'E'){
+            $data->validate([
+                'nif'=> ['required', 'integer', 'min:9'],
+            ]);
+        
             $empresa_id = Empresa::getEmpresaId(Auth::id());
             $empresa = Empresa::getEmpresaById($empresa_id);
 
@@ -98,8 +116,8 @@ class ProfileController extends Controller
                 'description' => $data['description'],
             ]);
             $empresa->save();
-            return redirect('profile')->with('status', 'Profile Updated!');
         }
+        return redirect('profile')->with('success', 'Profile Picture Updated!');
     }
 
     public function edit_profile_photo(Request $request, $photo_id, $user_id){
@@ -116,9 +134,11 @@ class ProfileController extends Controller
         ]);
 
         $photo = Photo::where('id', $photo_id)->first();
-        $photo_path = public_path().'/storage/images/'. $photo->path; 
-        unlink($photo_path);
-
+        if($photo_id != 1){
+            $photo_path = public_path().'/storage/images/'. $photo->path;
+            $photo->delete();
+            unlink($photo_path);
+        }
         $user = User::where('id', $user_id)->first();
         if($user->type_user == 'C'){
             $candidato = Candidato::where('user_id', $user->id)->first();
@@ -133,6 +153,6 @@ class ProfileController extends Controller
             ]);
             $empresa->save();
         }
-        return redirect()->route('profile')->with('success', 'Profile Picture Updated!');
+        return redirect('profile')->with('success', 'Profile Picture Updated!');
     }
 }

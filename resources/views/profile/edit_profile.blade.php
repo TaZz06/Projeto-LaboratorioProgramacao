@@ -66,6 +66,11 @@
                             name="name" value="{{ ($user->name) }}" required autocomplete="name">
                                 </li>
                             </ul>
+                            @error('name')
+                                <span class="invalid-feedback text-red-500" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
                         </div>
                         <div>
                             <div class="flex items-center space-x-2 font-semibold text-gray-900 leading-8 mb-3">
@@ -84,6 +89,11 @@
                             name="address" value="{{ ($user->address) }}" required autocomplete="address">
                                 </li>
                             </ul>
+                            @error('address')
+                                <span class="invalid-feedback text-red-500" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
                         </div>
                         <div>
                             <div class="flex items-center space-x-2 font-semibold text-gray-900 leading-8 mb-3">
@@ -98,10 +108,15 @@
                             </div>
                             <ul class="list-inside space-y-2">
                                 <li>
-                                <input id="email" type="text" class="form-control @error('email') is-invalid @enderror bg-indigo-50 px-4 py-2 outline-none rounded-md w-full" 
-                            name="email" value="{{ ($user->email) }}" required autocomplete="email">
+                                    <input id="email" type="email" class="form-control @error('email') is-invalid @enderror bg-indigo-50 px-4 py-2 outline-none rounded-md w-full" 
+                                    name="email" value="{{ ($user->email) }}" required autocomplete="email">
                                 </li>
                             </ul>
+                            @error('email')
+                                <span class="invalid-feedback text-red-500" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
                         </div>
                         <div>
                             <div class="flex items-center space-x-2 font-semibold text-gray-900 leading-8 mb-3">
@@ -120,6 +135,11 @@
                             name="contact" value="{{ ($user->contact) }}" required autocomplete="contact">
                                 </li>
                             </ul>
+                            @error('contact')
+                                <span class="invalid-feedback text-red-500" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
                         </div>
                     </div>
                 </div>
@@ -145,6 +165,11 @@
                             name="professional_experience" value="{{ ($candidato->professional_experience) }}" required autocomplete="professional_experience">
                                 </li>
                             </ul>
+                            @error('professional_experience')
+                                <span class="invalid-feedback text-red-500" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
                         </div>
                         <div>
                             <div class="flex items-center space-x-2 font-semibold text-gray-900 leading-8 mb-3">
@@ -166,6 +191,11 @@
                             name="profissional_area" value="{{ ($candidato->profissional_area) }}" required autocomplete="profissional_area">
                                 </li>
                             </ul>
+                            @error('profissional_area')
+                                <span class="invalid-feedback text-red-500" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
                         </div>
                         <div>
                             <div class="flex items-center space-x-2 font-semibold text-gray-900 leading-8 mb-3">
@@ -184,6 +214,11 @@
                             name="schooling" value="{{ ($candidato->schooling) }}" required autocomplete="schooling">
                                 </li>
                             </ul>
+                            @error('schooling')
+                                <span class="invalid-feedback text-red-500" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
                         </div>
                         <div>
                             <div class="flex items-center space-x-2 font-semibold text-gray-900 leading-8 mb-3">
@@ -202,6 +237,11 @@
                             name="skills" value="{{ ($candidato->skills) }}" required autocomplete="skills">
                                 </li>
                             </ul>
+                            @error('skills')
+                                <span class="invalid-feedback text-red-500" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
                         </div>
                     </div>
                     </div>
@@ -225,6 +265,11 @@
                                 <input id="nif" type="text" class="form-control bg-indigo-50 px-4 py-2 outline-none rounded-md w-full" name="nif" value="{{ ($empresa->nif) }}" required autocomplete="nif">
                                 </li>
                             </ul>
+                            @error('nif')
+                                <span class="invalid-feedback text-red-500" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
                         </div>
                         <div>
                             <div class="flex items-center space-x-2 font-semibold text-gray-900 leading-8 mb-3">
@@ -246,7 +291,13 @@
                                     name="description" 
                                     autocomplete="description">{{ $empresa->description }}</textarea>
                                 </li>
+                                
                             </ul>
+                            @error('description')
+                                <span class="invalid-feedback text-red-500" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
                         </div>
                     </div>
                     </div>

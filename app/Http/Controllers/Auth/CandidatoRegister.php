@@ -39,7 +39,8 @@ class CandidatoRegister extends Controller
     }
 
     public function remove_candidato($user_id)
-    {
+    {   
+        $photo_detected = false;
         $applications = Application::getAllApplicationByUserId($user_id);
         foreach($applications as $application){
             $pdf_path = public_path().'/storage/pdf/'. $application->pdf_path; 
@@ -49,14 +50,18 @@ class CandidatoRegister extends Controller
         $candidato = Candidato::getCandidatoById($user_id);
         if($candidato->photo_id != 1){
             $photo = Photo::where('id', $candidato->photo_id)->first();
-            $photo_path = public_path().'/storage/images/'. $photo->path; 
+            $photo_path = public_path().'/storage/images/'. $photo->path;
             unlink($photo_path);
+            $photo_detected = true;
         }
 
         $user = User::find($user_id);
         $user->setRegistered(false);
         $user->save();
         Candidato::getCandidatoById($user_id)->delete();
-        return redirect()->back();
+        if($photo_detected){
+            $photo->delete();
+        }
+        return redirect()->back()->with('success', 'Candidate Removed!');
     }
 }

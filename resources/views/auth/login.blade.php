@@ -1,7 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-    @include('layouts.alert')
     <div class="h-screen bg-gradient-to-b from-gray-500 to-violet-50 px-20 py-10 flex justify-center items-center w-full">
         <form method="POST" action="{{ route('login') }}" class="h-screen py-52">
             @csrf
@@ -39,6 +38,7 @@
                     </div>
                 </div>
                 <button class="mt-4 w-full bg-gradient-to-tr from-blue-600 to-indigo-600 text-indigo-100 py-2 rounded-md text-lg tracking-wide">{{ __('Login') }}</button>
+                @include('layouts.alert')
                 @if (Route::has('password.request'))
                     <div class="justify-center">
                         <div class="space-y-2">

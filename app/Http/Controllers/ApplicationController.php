@@ -30,8 +30,11 @@ class ApplicationController extends Controller
     }
     
     public function remove_application($application_id){
-        Application::where('id', $application_id)->delete();
-        return redirect()->back();
+        $application = Application::where('id', $application_id)->first();
+        $pdf_path = public_path().'/storage/pdf/'. $application->pdf_path; 
+        unlink($pdf_path);
+        $application->delete();
+        return redirect()->back()->with('success', 'Application Removed!');
     }
 
     public function edit_index($application_id, $anuncio_id){
@@ -62,7 +65,7 @@ class ApplicationController extends Controller
             ]);
             $application->save();
             
-            return redirect()->back();
+            return redirect()->back()->with('success', 'Application successfully edited!');
         }
         else
             $updatedApplication = DB::table('applications')->where('user_id', $user_id)->where('anuncio_id', $anuncio_id)->update([
@@ -70,6 +73,6 @@ class ApplicationController extends Controller
             ]);
             $application->save();
 
-            return redirect()->back();
+            return redirect()->back()->with('success', 'Application successfully edited!');
     }
 }

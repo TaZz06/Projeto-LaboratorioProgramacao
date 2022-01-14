@@ -56,8 +56,7 @@ class AnuncioController extends Controller
                 'type'=> $request['type'],
                 'is_highlighted' => $request->filled('is_highlighted'),
             ]);
-
-            return redirect()->route('home');
+            return redirect()->route('home')->with('success', 'Opportunity Created!');
         } catch(\Exception $e) {
             return redirect()->back()
                 ->withErrors(['error' => $e->getMessage()]);
@@ -90,7 +89,7 @@ class AnuncioController extends Controller
             'type'=> $request['type'],
         ]);
         $anuncio->save();
-        return redirect('profile')->with('status', 'Opportunity updated!');
+        return redirect('profile')->with('success', 'Opportunity updated!');
     }
     
     public function remove_anuncio($anuncio_id){
@@ -101,6 +100,6 @@ class AnuncioController extends Controller
             }
         }
         Anuncio::getAnuncioById($anuncio_id)->delete();
-        return redirect()->back();
+        return redirect()->back()->with('success', 'Opportunity Removed!');
     }
 }
