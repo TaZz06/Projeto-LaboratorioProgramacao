@@ -26,11 +26,11 @@ class AnuncioController extends Controller
     protected function insert_anuncio(Request $request)
     {
         $request->validate([
-            'workspace'=> ['required', 'string', 'max:30'],
-            'job_description'=> ['required', 'string', 'max:255'],
-            'desired_skills'=> ['required', 'string', 'max:150'],
+            'workspace'=> ['required', 'string', 'max:50'],
+            'job_description'=> ['required'],
+            'desired_skills'=> ['required'],
             'salary' => ['numeric', 'min:0', 'max:9999.99'],
-            'city' => ['required', 'string', 'max:255'],
+            'city' => ['required', 'string', 'max:30'],
             'type'=> ['required', 'string', 'max:2'],
             'payment_method_id' => 'required'
         ]);

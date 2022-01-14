@@ -121,6 +121,7 @@ class ProfileController extends Controller
     }
 
     public function edit_profile_photo(Request $request, $photo_id, $user_id){
+        $photo_detected = false;
         $request->validate([
             'profile_pic' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048',
         ]);
@@ -136,8 +137,8 @@ class ProfileController extends Controller
         $photo = Photo::where('id', $photo_id)->first();
         if($photo_id != 1){
             $photo_path = public_path().'/storage/images/'. $photo->path;
-            $photo->delete();
             unlink($photo_path);
+            $photo_detected = true;
         }
         $user = User::where('id', $user_id)->first();
         if($user->type_user == 'C'){
@@ -151,6 +152,9 @@ class ProfileController extends Controller
             $update_empresa = DB::table('empresas')->where('user_id', $user_id)->update([
                 'logo_id' => $picture->id,
             ]);
+            if($photo_detected){
+                $photo->delete();
+            }
             $empresa->save();
         }
         return redirect('profile')->with('success', 'Profile Picture Updated!');

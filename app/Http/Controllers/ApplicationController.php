@@ -26,7 +26,7 @@ class ApplicationController extends Controller
             'pdf_path'=> $request->file('pdf')->hashName(),
         ]);
         
-        return redirect()->back();
+        return redirect()->back()->with('success', 'Applied!');
     }
     
     public function remove_application($application_id){

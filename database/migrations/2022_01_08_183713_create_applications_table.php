@@ -17,12 +17,12 @@ class CreateApplicationsTable extends Migration
             $table->id()->onDelete('cascade');
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('anuncio_id');
-            $table->string('comment');
+            $table->string('comment')->nullable();
             $table->string('pdf_name');
             $table->string('pdf_path');
             $table->timestamps();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreign('anuncio_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('anuncio_id')->references('id')->on('anuncios')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 
