@@ -16,10 +16,8 @@ class IsCandidate
      */
     public function handle(Request $request, Closure $next)
     {
-        if(auth()->user()){
-            if(auth()->user()->type_user == 'C'){
-                return $next($request);
-            }
+        if(auth()->user() && auth()->user()->type_user == 'C'){
+            return $next($request);
         }
         return redirect('home')->withErrors(['msg'=>"You are not a Candidate."]);
     }

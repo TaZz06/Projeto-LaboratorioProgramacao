@@ -27,7 +27,7 @@
                 <div class="py-6 px-4 flex flex-wrap md:flex-nowrap drop-shadow-md border-b border-gray-300 {{ $info->is_highlighted ? 'bg-indigo-400 hover:bg-indigo-200' : 'bg-white hover:bg-indigo-200' }} rounded-md">
                     <div class="md:w-16 md:mb-0 mb-6 mr-4 flex-shrink-0 flex flex-col  ">
                         @if($info->logo_id)
-                            <img src="{{asset('storage/images/'.$info->path)}}" class="w-16 h-16 rounded-full object-cover">
+                            <img alt="userImage" src="{{asset('storage/images/'.$info->path)}}" class="w-16 h-16 rounded-full object-cover">
                         @endif
                     </div>
                     <div class="md:w-1/2 mr-8 flex flex-col items-start justify-center">

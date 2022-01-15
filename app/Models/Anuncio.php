@@ -21,7 +21,6 @@ class Anuncio extends Model
     ];
 
     public static function getAnuncioById($anuncio_id){
-        $anuncio = Anuncio::where('id', $anuncio_id)->first();
-        return $anuncio;
+        return Anuncio::where('id', $anuncio_id)->first();
     }
 }

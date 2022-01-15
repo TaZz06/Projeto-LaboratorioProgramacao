@@ -8,17 +8,17 @@
             <table class="min-w-full">
                 <thead>
                     <tr>
-                        <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+                        <th scope="col" class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
                             Name</th>
-                        <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+                        <th scope="col" class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
                             Workspace</th>
-                        <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+                        <th scope="col" class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
                             Comment</th>
-                        <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+                        <th scope="col" class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
                             PDF Name</th>
-                        <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+                        <th scope="col" class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
                             PDF Path</th>
-                        <th class="px-6 py-3 border-b border-gray-200 bg-gray-50"></th>
+                        <th scope="col" class="px-6 py-3 border-b border-gray-200 bg-gray-50"></th>
                     </tr>
                 </thead>
                 <tbody id="applicationsDashboard"class="bg-white">
@@ -27,7 +27,7 @@
                             <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
                                 <div class="flex items-center">
                                     <div class="flex-shrink-0 h-10 w-10">
-                                    <img src="{{asset('storage/images/'.$info->path)}}" class="w-10 h-10 rounded-full object-cover">
+                                    <img alt="userImage" src="{{asset('storage/images/'.$info->path)}}" class="w-10 h-10 rounded-full object-cover">
                                     </div>
 
                                     <div class="ml-4">

@@ -44,34 +44,18 @@ class EmpresaRegister extends Controller
     }
 
     public function remove_empresa($empresa_id){
-        $photo_detected = false;
         $empresa = Empresa::where('id', $empresa_id)->first();
-        $anuncios = Anuncio::where('empresa_id', $empresa->id)->get();
-        if($anuncios){
-            foreach ($anuncios  as $anuncio){
-                $applications = Application::where('anuncio_id', $anuncio->id)->get();
-                if($applications){
-                    foreach ($applications  as $application){
-                        $application->delete();
-                    }
-                }
-                $anuncio->delete();
-            }
-        }
         if($empresa->logo_id != 1){
             $photo = Photo::where('id', $empresa->logo_id)->first();
             $photo_path = public_path().'/storage/images/'. $photo->path; 
             
             unlink($photo_path);
-            $photo_detected = true;
+            $photo->delete();
         }
         $user = User::find($empresa->user_id);
         $user->setRegistered(false);
         $user->save();
         $empresa->delete();
-        if($photo_detected){
-            $photo->delete();
-        }
         return redirect()->back()->with('success', 'Company Removed!');
     }
 }

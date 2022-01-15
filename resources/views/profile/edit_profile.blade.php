@@ -11,10 +11,10 @@
                 <div class="bg-white p-3 border-t-4 border-blue-600">
                 <div class="image overflow-hidden">
                     @if(Auth::user()->type_user == 'E') 
-                        <img src="{{asset('storage/images/'.$photo->path)}}" class="h-auto w-full mx-auto">
+                        <img alt="userImage" src="{{asset('storage/images/'.$photo->path)}}" class="h-auto w-full mx-auto">
                     @endif
                     @if(Auth::user()->type_user == 'C') 
-                        <img class="h-auto w-full mx-auto" src="storage/images/default_user.png" alt="">
+                        <img alt="userImage" class="h-auto w-full mx-auto" src="storage/images/default_user.png" alt="">
                     @endif
                 </div>
                 <h1 class="text-gray-900 font-bold text-xl leading-8 my-1">{{''}}</h1>

@@ -6,13 +6,14 @@
         <div class="align-middle inline-block min-w-full shadow overflow-hidden sm:rounded-lg border-b border-gray-200">
             <h3 class="pl-5 text-gray-700 text2xl font-medium">Companies Dashboard</h3>
             <table class="min-w-full">
+                <caption>Companies Table:</caption>
                 <thead>
                     <tr>
-                        <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+                        <th scope="col" class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
                             Name</th>
-                        <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+                        <th scope="col" class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
                             NIF</th>
-                        <th class="px-6 py-3 border-b border-gray-200 bg-gray-50"></th>
+                        <th scope="col" class="px-6 py-3 border-b border-gray-200 bg-gray-50"></th>
                     </tr>
                 </thead>
                 <tbody id="empresasDashboard"class="bg-white">
@@ -22,7 +23,7 @@
                                 <div class="flex items-center">
                                     <div class="flex-shrink-0 h-10 w-10">
                                         @if($info->logo_id)
-                                        <img src="{{asset('storage/images/'.$info->path)}}" class="w-10 h-10 rounded-full object-cover">
+                                        <img alt="userImage" src="{{asset('storage/images/'.$info->path)}}" class="w-10 h-10 rounded-full object-cover">
                                         @endif
                                     </div>
 

@@ -46,7 +46,7 @@ class AnuncioController extends Controller
             
             $user->charge($amount, $request->payment_method_id);
 
-            $newAnuncio=Anuncio::create([
+            Anuncio::create([
                 'empresa_id' => Empresa::getEmpresaId(Auth::id()),
                 'workspace' => $request['workspace'],
                 'job_description' => $request['job_description'],
@@ -80,7 +80,7 @@ class AnuncioController extends Controller
 
     protected function edit_anuncio(Request $request, $anuncio_id){
         $anuncio = Anuncio::getAnuncioById($anuncio_id);
-        $updateAnuncio = DB::table('anuncios')->where('id', $anuncio_id)->update([
+        DB::table('anuncios')->where('id', $anuncio_id)->update([
             'workspace' => $request['workspace'],
             'job_description' => $request['job_description'],
             'desired_skills' => $request['desired_skills'],

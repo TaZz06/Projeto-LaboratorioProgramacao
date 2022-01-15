@@ -22,8 +22,8 @@ class CreateCandidato extends Migration
             $table->string('skills');
             $table->unsignedBigInteger('photo_id')->default(1);
             $table->timestamps();
-            $table->foreign('user_id')->references('id')->on('users');
-            $table->foreign('photo_id')->references('id')->on('photos');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('photo_id')->references('id')->on('photos')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 

@@ -16,10 +16,10 @@ class CandidatoRegister extends Controller
     {
 
         $request->validate([
-            'profissional_area'=> ['required', 'string', 'max:255'],
-            'schooling'=> ['required', 'string', 'max:255'],
-            'professional_experience'=> ['required', 'string', 'max:255'],
-            'skills'=> ['required', 'string', 'max:255'],
+            'profissional_area'=> ['required', 'string', MAXLENGTH],
+            'schooling'=> ['required', 'string', MAXLENGTH],
+            'professional_experience'=> ['required', 'string', MAXLENGTH],
+            'skills'=> ['required', 'string', MAXLENGTH],
         ]);
         
         $newCandidato=Candidato::create([
@@ -40,28 +40,24 @@ class CandidatoRegister extends Controller
 
     public function remove_candidato($user_id)
     {   
-        $photo_detected = false;
-        $applications = Application::getAllApplicationByUserId($user_id);
+        $candidato = Candidato::getCandidatoById($user_id);
+        $applications = Application::where('candidato_id', $candidato);
         foreach($applications as $application){
             $pdf_path = public_path().'/storage/pdf/'. $application->pdf_path; 
             unlink($pdf_path);
-            $application->delete();
         }
-        $candidato = Candidato::getCandidatoById($user_id);
+        
         if($candidato->photo_id != 1){
             $photo = Photo::where('id', $candidato->photo_id)->first();
             $photo_path = public_path().'/storage/images/'. $photo->path;
             unlink($photo_path);
-            $photo_detected = true;
+            $photo->delete();
         }
-
+        
         $user = User::find($user_id);
         $user->setRegistered(false);
         $user->save();
-        Candidato::getCandidatoById($user_id)->delete();
-        if($photo_detected){
-            $photo->delete();
-        }
+        $candidato->delete();
         return redirect()->back()->with('success', 'Candidate Removed!');
     }
 }

@@ -24,7 +24,7 @@ class CreateAnuncio extends Migration
             $table->string('city');
             $table->boolean('is_highlighted')->default(false);
             $table->timestamps();
-            $table->foreign('empresa_id')->references('id')->on('empresas');
+            $table->foreign('empresa_id')->references('id')->on('empresas')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 

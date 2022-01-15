@@ -21,7 +21,8 @@
                                 name="type" 
                                 onclick="selected_option();"
                                 class="bg-indigo-50 px-4 py-2 outline-none rounded-md w-full " 
-                                required="required">
+                                required="required"
+                                value="{{ old('type') }}">
                                     <option value="">           </option>
                                     <option value="I">Internship</option>
                                     <option value="PI">Paid Internship</option>
@@ -59,7 +60,8 @@
                                 type="text" 
                                 required="required" 
                                 name="city" 
-                                id="city">
+                                id="city"
+                                value="{{ old('city') }}">
                                 @error('city')
                                     <span class="invalid-feedback text-red-500" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -109,7 +111,8 @@
                                     type="text" 
                                     name="salary"
                                     class="form-control @error('salary') is-invalid @enderror bg-indigo-50 px-4 py-2 outline-none rounded-md w-full" 
-                                    type="text">
+                                    type="text"
+                                    value="{{ old('salary') }}">
                                     @error('salary')
                                         <span class="text-red-500" role="alert">
                                             <strong>{{ $message }}</strong>

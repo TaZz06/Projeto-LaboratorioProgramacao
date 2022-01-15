@@ -18,7 +18,7 @@ class ApplicationController extends Controller
         $name = $request->file('pdf')->getClientOriginalName();
         $request->file('pdf')->store('public/pdf');
 
-        $newApplication = Application::create([
+        Application::create([
             'user_id' => Auth::id(),
             'anuncio_id' => $anuncio,
             'comment' => $request->comment,
@@ -58,21 +58,19 @@ class ApplicationController extends Controller
             $name = $request->file('pdf')->getClientOriginalName();
             $request->file('pdf')->store('public/pdf');
 
-            $updatedApplication = DB::table('applications')->where('user_id', $user_id)->where('anuncio_id', $anuncio_id)->update([
+            DB::table('applications')->where('user_id', $user_id)->where('anuncio_id', $anuncio_id)->update([
                 'comment' => $request['comment'],
                 'pdf_name'=> $name,
                 'pdf_path'=> $request->file('pdf')->hashName(),
             ]);
             $application->save();
-            
-            return redirect()->back()->with('success', 'Application successfully edited!');
         }
-        else
-            $updatedApplication = DB::table('applications')->where('user_id', $user_id)->where('anuncio_id', $anuncio_id)->update([
+        else{
+            DB::table('applications')->where('user_id', $user_id)->where('anuncio_id', $anuncio_id)->update([
                 'comment' => $request['comment'],
             ]);
             $application->save();
-
-            return redirect()->back()->with('success', 'Application successfully edited!');
+        }
+        return redirect()->back()->with('success', 'Application successfully edited!');
     }
 }

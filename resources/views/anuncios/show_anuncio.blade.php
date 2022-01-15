@@ -25,7 +25,7 @@
                                 @endif
                             </div>
                             <div class="w-full md:w-1/4 pl-4">
-                                <img src="{{asset('storage/images/'.$photo->path)}}" class="max-w-full mb-4">
+                                <img alt="userImage" src="{{asset('storage/images/'.$photo->path)}}" class="max-w-full mb-4">
                                 <p class="leading-relaxed text-base">
                                     <strong>Location: </strong>{{ $anuncio->city }}<br>
                                     <strong>Company: </strong>{{ $user->name }}<br>

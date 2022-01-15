@@ -60,8 +60,8 @@ class User extends Authenticatable implements MustVerifyEmail
         $this->attributes['is_Admin'] = $value;
     }
 
-    public static function getUserById($user_id){
-        $user = User::where('id', $user_id)->first();
-        return $user;
+    public static function getUserById($user_id)
+    {
+        return User::where('id', $user_id)->first();
     }
 }

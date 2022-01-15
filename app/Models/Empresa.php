@@ -17,19 +17,16 @@ class Empresa extends Model
 
     public static function getEmpresaById($empresa_id)
     {
-        $empresa = Empresa::where('id', $empresa_id)->first();
-        return $empresa;
+        return Empresa::where('id', $empresa_id)->first();
     }
 
     public static function getEmpresaId($user_id){
-        $empresa = Empresa::where('user_id', $user_id)->first();
-        return $empresa->id;
+        return Empresa::where('user_id', $user_id)->first();
     }
 
     public static function getPhotoByUserId($user_id){
         $empresa= Empresa::getEmpresaById($user_id);
         $id = $empresa->logo_id;
-        $photo= Photo::getPhotoById($id);
-        return $photo;
+        return Photo::getPhotoById($id);
     }
 }

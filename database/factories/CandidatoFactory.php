@@ -20,6 +20,7 @@ class CandidatoFactory extends Factory
             'schooling' => $this->faker->text(),
             'professional_experience' => $this->faker->text(),
             'skills' => $this->faker->text(),
+            'photo_id' => 1,
         ];
     }
 }

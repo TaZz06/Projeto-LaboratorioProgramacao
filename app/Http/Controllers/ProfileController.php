@@ -11,6 +11,8 @@ use App\Models\Empresa;
 use App\Models\Photo;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+define('PROFILEVIEW', 'profile.profile');
+define('MAXLENGTH', 'max:255');
 
 class ProfileController extends Controller
 {
@@ -29,9 +31,9 @@ class ProfileController extends Controller
                 ->get();
                 
             if($infos){
-                return view('profile.profile')->with(compact('user','candidato', 'photo', 'infos'));
+                return view(PROFILEVIEW)->with(compact('user','candidato', 'photo', 'infos'));
             }
-            return view('profile.profile')->with(compact('user', 'candidato', 'photo'));
+            return view(PROFILEVIEW)->with(compact('user', 'candidato', 'photo'));
         }
         else if ($user->type_user == 'E'){
             $empresa_id = Empresa::getEmpresaId(Auth::id());
@@ -46,11 +48,11 @@ class ProfileController extends Controller
                 ->get();
                 
                 if($infos){
-                    return view('profile.profile')->with(compact('user','empresa', 'photo', 'anuncios', 'infos'));
+                    return view(PROFILEVIEW)->with(compact('user','empresa', 'photo', 'anuncios', 'infos'));
                 }
-                return view('profile.profile')->with(compact('user','empresa', 'photo', 'anuncios'));
+                return view(PROFILEVIEW)->with(compact('user','empresa', 'photo', 'anuncios'));
             }
-            return view('profile.profile')->with(compact('user','empresa', 'photo'));
+            return view(PROFILEVIEW)->with(compact('user','empresa', 'photo'));
         }
     }
 
@@ -70,15 +72,15 @@ class ProfileController extends Controller
 
     public function edit_profile(Request $data){
         $data->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'address' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255'],
+            'name' => ['required', 'string', MAXLENGTH],
+            'address' => ['required', 'string', MAXLENGTH],
+            'email' => ['required', 'string', 'email', MAXLENGTH],
             'contact'=> ['required', 'string', 'min:9'],
         ]);
 
 
         $user = User::getUserById(Auth::id());
-        $updateUser = DB::table('users')->where('id', $user->id)->update([
+        DB::table('users')->where('id', $user->id)->update([
             'name' => $data['name'],
             'address' => $data['address'],
             'contact'=> $data['contact'],
@@ -88,14 +90,14 @@ class ProfileController extends Controller
         
         if($user->type_user == 'C'){
             $data->validate([
-                'profissional_area'=> ['required', 'string', 'max:255'],
-                'schooling'=> ['required', 'string', 'max:255'],
-                'professional_experience'=> ['required', 'string', 'max:255'],
-                'skills'=> ['required', 'string', 'max:255'],
+                'profissional_area'=> ['required', 'string', MAXLENGTH],
+                'schooling'=> ['required', 'string', MAXLENGTH],
+                'professional_experience'=> ['required', 'string', MAXLENGTH],
+                'skills'=> ['required', 'string', MAXLENGTH],
             ]);
 
             $candidato = Candidato::getCandidatoById(Auth::id());
-            $updateCandidato = DB::table('candidatos')->where('id', $candidato->id)->update([
+            DB::table('candidatos')->where('id', $candidato->id)->update([
                 'profissional_area' => $data['profissional_area'],
                 'schooling' => $data['schooling'],
                 'professional_experience' => $data['professional_experience'],
@@ -111,7 +113,7 @@ class ProfileController extends Controller
             $empresa_id = Empresa::getEmpresaId(Auth::id());
             $empresa = Empresa::getEmpresaById($empresa_id);
 
-            $updateEmpresa = DB::table('empresas')->where('id', $empresa_id)->update([
+            DB::table('empresas')->where('id', $empresa_id)->update([
                 'nif' => $data['nif'],
                 'description' => $data['description'],
             ]);
@@ -143,13 +145,13 @@ class ProfileController extends Controller
         $user = User::where('id', $user_id)->first();
         if($user->type_user == 'C'){
             $candidato = Candidato::where('user_id', $user->id)->first();
-            $update_candidato = DB::table('candidatos')->where('user_id', $user_id)->update([
+            DB::table('candidatos')->where('user_id', $user_id)->update([
                 'photo_id' => $picture->id,
             ]);
             $candidato->save();
         }elseif($user->type_user == 'E'){
             $empresa = Empresa::where('user_id', $user->id)->first();
-            $update_empresa = DB::table('empresas')->where('user_id', $user_id)->update([
+            DB::table('empresas')->where('user_id', $user_id)->update([
                 'logo_id' => $picture->id,
             ]);
             if($photo_detected){

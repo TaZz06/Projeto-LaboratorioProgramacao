@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
 use App\Models\Application;
 use App\Models\Anuncio;
+define('MAXLENGTH', 'max:255');
 
 class RegisterController extends Controller
 {
@@ -53,9 +54,9 @@ class RegisterController extends Controller
     protected function create(Request $data)
     {
         $data->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'address' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'name' => ['required', 'string', MAXLENGTH],
+            'address' => ['required', 'string', MAXLENGTH],
+            'email' => ['required', 'string', 'email', MAXLENGTH, 'unique:users'],
             'contact'=> ['required', 'string', 'min:9'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
             'flexRadioDefault' => ['required'],

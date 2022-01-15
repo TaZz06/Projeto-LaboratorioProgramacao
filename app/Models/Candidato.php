@@ -26,7 +26,6 @@ class Candidato extends Model
 
     public static function getCandidatoById($user_id)
     {
-        $candidato = Candidato::where('user_id', $user_id)->first();
-        return $candidato;
+        return Candidato::where('user_id', $user_id)->first();
     }
 }

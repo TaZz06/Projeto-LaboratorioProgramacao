@@ -9,6 +9,8 @@ use App\Models\Anuncio;
 use App\Models\Empresa;
 use App\Models\Photo;
 use App\Models\User;
+define('USERSNAME', 'users.name');
+
 class HomeController extends Controller
 {
     /**
@@ -23,8 +25,8 @@ class HomeController extends Controller
             ->leftjoin('empresas', 'empresas.id', '=', 'anuncios.empresa_id')
             ->leftjoin('photos', 'photos.id', '=', 'empresas.logo_id')
             ->leftjoin('users','users.id', '=', 'empresas.user_id')
-            ->select('anuncios.*', 'anuncios.id as id','empresas.logo_id as logo_id', 'photos.path', 'users.name')
-            ->where('city', 'like', '%'.$request['pesquisa'].'%')->orWhere('workspace', 'like', '%'.$request['pesquisa'].'%')->orWhere('users.name', 'like', '%'.$request['pesquisa'].'%')
+            ->select('anuncios.*', 'anuncios.id as id','empresas.logo_id as logo_id', 'photos.path', USERSNAME)
+            ->where('city', 'like', '%'.$request['pesquisa'].'%')->orWhere('workspace', 'like', '%'.$request['pesquisa'].'%')->orWhere(USERSNAME, 'like', '%'.$request['pesquisa'].'%')
             ->orderBy('is_highlighted', 'desc')
             ->paginate(10);
         }
@@ -33,7 +35,7 @@ class HomeController extends Controller
             ->leftjoin('empresas', 'empresas.id', '=', 'anuncios.empresa_id')
             ->leftjoin('photos', 'photos.id', '=', 'empresas.logo_id')
             ->leftjoin('users','users.id', '=', 'empresas.user_id')
-            ->select('anuncios.*', 'anuncios.id as id','empresas.logo_id as logo_id', 'photos.path', 'users.name')
+            ->select('anuncios.*', 'anuncios.id as id','empresas.logo_id as logo_id', 'photos.path', USERSNAME)
             ->orderBy('is_highlighted', 'desc')
             ->paginate(10);
         }

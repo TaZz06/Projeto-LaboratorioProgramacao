@@ -110,7 +110,7 @@
                               </svg>
                            </div>
                            <div class="mx-5">
-                              <h4 class="text-2xl font-semibold text-gray-700">{{$users}}</h4>
+                              <h4 class="text-2xl font-semibold text-gray-700">{{$counter[0]}}</h4>
                               <div class="text-gray-500">Users</div>
                            </div>
                         </div>
@@ -123,7 +123,7 @@
                               </svg>
                            </div>
                            <div class="mx-5">
-                              <h4 class="text-2xl font-semibold text-gray-700">{{ $candidatos}}</h4>
+                              <h4 class="text-2xl font-semibold text-gray-700">{{ $counter[1]}}</h4>
                               <div class="text-gray-500">Candidates</div>
                            </div>
                         </div>
@@ -137,7 +137,7 @@
                               </svg>
                            </div>
                            <div class="mx-5">
-                              <h4 class="text-2xl font-semibold text-gray-700">{{ $empresas}}</h4>
+                              <h4 class="text-2xl font-semibold text-gray-700">{{ $counter[2]}}</h4>
                               <div class="text-gray-500">Companies</div>
                            </div>
                         </div>
@@ -150,7 +150,7 @@
                               </svg>
                            </div>
                            <div class="mx-5">
-                              <h4 class="text-2xl font-semibold text-gray-700">{{$anuncios}}</h4>
+                              <h4 class="text-2xl font-semibold text-gray-700">{{$counter[3]}}</h4>
                               <div class="text-gray-500">Opportunities</div>
                            </div>
                         </div>
@@ -164,7 +164,7 @@
                               </svg>
                            </div>
                            <div class="mx-5">
-                              <h4 class="text-2xl font-semibold text-gray-700">{{$applications}}</h4>
+                              <h4 class="text-2xl font-semibold text-gray-700">{{$counter[4]}}</h4>
                               <div class="text-gray-500">Applications</div>
                            </div>
                         </div>

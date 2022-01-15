@@ -19,12 +19,10 @@ class Application extends Model
 
     public static function getApplicationByUserIdAnuncioId($user_id, $anuncio_id)
     {
-        $application = Application::where('user_id', $user_id)->where('anuncio_id', $anuncio_id)->first();
-        return $application;
+        return Application::where('user_id', $user_id)->where('anuncio_id', $anuncio_id)->first();
     }
     public static function getAllApplicationByUserId($user_id)
     {
-        $applications = Application::where('user_id', $user_id)->get();
-        return $applications;
+        return Application::where('user_id', $user_id)->get();
     }
 }

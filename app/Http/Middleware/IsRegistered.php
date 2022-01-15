@@ -16,14 +16,12 @@ class IsRegistered
      */
     public function handle(Request $request, Closure $next)
     {
-        if(auth()->user()){
-            if(auth()->user()->registered == false){
-                if(auth()->user()->type_user == 'C'){
-                    return response()->view('auth.candidato');
-                }
-                else if(auth()->user()->type_user == 'E'){
-                    return response()->view('auth.empresa');
-                }
+        if(auth()->user() && !auth()->user()->registered){
+            if(auth()->user()->type_user == 'C'){
+                return response()->view('auth.candidato');
+            }
+            else if(auth()->user()->type_user == 'E'){
+                return response()->view('auth.empresa');
             }
         }
         return $next($request);

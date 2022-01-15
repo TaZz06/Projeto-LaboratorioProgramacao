@@ -16,7 +16,6 @@ class Photo extends Model
 
     public static function getPhotoById($photo_id)
     {
-        $photo = Photo::where('id', $photo_id)->first();
-        return $photo;
+        return Photo::where('id', $photo_id)->first();
     }
 }
