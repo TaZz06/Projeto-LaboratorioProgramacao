@@ -1,10 +1,10 @@
 <?php
 
 namespace Tests\Feature;
-
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
+use App\Models\User;
+use Illuminate\Http\Request;
+use App\Http\Middleware\IsAdmin;
 
 class LoginTest extends TestCase
 {
@@ -13,12 +13,46 @@ class LoginTest extends TestCase
      *
      * @return void
      */
-    public function login_sucessful()
+    
+    public function test_login_successful_when_user_is_admin()
     {
-        $this->visit('/login')
-        ->type('ricpinheiro06@gmail.com', 'email')
-        ->type('password', 'password')
-        ->press('Login')
-        ->seePageIs('/admin_home');
+        $this->call('POST', 'login', [
+            'email' => 'ricpinheiro06@gmail.com',
+            'password' => 'password',
+            '_token' => csrf_token()
+        ]);
+        $this->assertRedirectedTo('admin_home');
+    }   
+
+    public function test_login_successful_when_user_is_not_admin()
+    {
+        $this->call('POST', 'login', [
+            'email' => 'easytalk@gmail.com',
+            'password' => '123456789',
+            '_token' => csrf_token()
+        ]);
+        $this->assertRedirectedTo('home');
+    }   
+
+    public function test_login_with_a_not_registered_account()
+    {
+        $faker = \Faker\Factory::create();
+        $email = $faker->email();
+        $this->call('POST', 'login', [
+            'email' => $email,
+            'password' => 'password',
+            '_token' => csrf_token()
+        ]);
+        $this->notSeeInDatabase('users', ['email' => $email]);
     }
+
+    public function test_access_admin_home_when_user_is_not_admin()
+    {
+        $user = User::where('is_admin', false)->first();
+        $this->actingAs($user);
+        $request = Request::create('/admin_home', 'GET');
+        $middleware = new IsAdmin;
+        $middleware->handle($request, function () {});
+        $this->assertSessionHasErrors('msg', "You don't have admin access.");
+    }   
 }

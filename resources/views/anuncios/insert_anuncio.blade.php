@@ -138,7 +138,7 @@
                                 <input type="hidden" id="payment_method_id" name="payment_method_id" value="">
                             </div>
                             <div class="mt-5 text-right md:space-x-3 md:block flex flex-col-reverse">
-                                <button type="sumbmit" id="form_submit" class="w-full bg-gradient-to-tr from-blue-600 to-indigo-600 text-indigo-100 py-2 rounded-md text-lg tracking-wide">{{ __('Publish') }}</button>
+                                <button name="publish" type="sumbmit" id="form_submit" class="w-full bg-gradient-to-tr from-blue-600 to-indigo-600 text-indigo-100 py-2 rounded-md text-lg tracking-wide">{{ __('Publish') }}</button>
                             </div>
                             <div class="mt-2 flex">
                                 <a href="{{ route('home') }}" class="text-center w-full bg-gradient-to-tr from-red-600 to-orange-600 text-indigo-100 py-2 rounded-md text-lg"> Cancel </a>
