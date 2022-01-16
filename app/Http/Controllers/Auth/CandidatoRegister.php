@@ -46,14 +46,12 @@ class CandidatoRegister extends Controller
             $pdf_path = public_path().'/storage/pdf/'. $application->pdf_path; 
             unlink($pdf_path);
         }
-        
         if($candidato->photo_id != 1){
             $photo = Photo::where('id', $candidato->photo_id)->first();
             $photo_path = public_path().'/storage/images/'. $photo->path;
             unlink($photo_path);
             $photo->delete();
         }
-        
         $user = User::find($user_id);
         $user->setRegistered(false);
         $user->save();

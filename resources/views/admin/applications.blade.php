@@ -6,6 +6,7 @@
         <div class="align-middle inline-block min-w-full shadow overflow-hidden sm:rounded-lg border-b border-gray-200">
             <h3 class="pl-5 text-gray-700 text2xl font-medium">Applications Dashboard</h3>
             <table class="min-w-full">
+            <caption>Applications Table:</caption>
                 <thead>
                     <tr>
                         <th scope="col" class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">

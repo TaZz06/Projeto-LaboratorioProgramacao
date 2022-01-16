@@ -5,10 +5,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use App\Models\Anuncio;
-use App\Models\Empresa;
-use App\Models\Photo;
-use App\Models\User;
 define('USERSNAME', 'users.name');
 
 class HomeController extends Controller
