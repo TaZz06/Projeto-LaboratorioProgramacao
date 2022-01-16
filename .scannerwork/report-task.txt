@@ -1,6 +1,6 @@
-projectKey=EngenhariaSoftware2
+projectKey=EngenhariaSoftwareFinal
 serverUrl=http://localhost:9000
 serverVersion=9.2.4.50792
-dashboardUrl=http://localhost:9000/dashboard?id=EngenhariaSoftware2
-ceTaskId=AX5fY09FMqcZnzdIccvb
-ceTaskUrl=http://localhost:9000/api/ce/task?id=AX5fY09FMqcZnzdIccvb
+dashboardUrl=http://localhost:9000/dashboard?id=EngenhariaSoftwareFinal
+ceTaskId=AX5ha2WONvMI9eTRjmzf
+ceTaskUrl=http://localhost:9000/api/ce/task?id=AX5ha2WONvMI9eTRjmzf
