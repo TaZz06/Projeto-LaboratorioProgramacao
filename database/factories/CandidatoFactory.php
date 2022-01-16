@@ -15,7 +15,7 @@ class CandidatoFactory extends Factory
     public function definition()
     {
         return [
-            'user_id' => User::all()->random()->id,
+            'user_id' => User::where('type_user', 'C')->get()->random(1)->first()->id,
             'profissional_area' => $this->faker->jobTitle(),
             'schooling' => $this->faker->text(),
             'professional_experience' => $this->faker->text(),
