@@ -28,8 +28,8 @@ class RegisterTest extends TestCase
             'password_confirmation' => 'password',
             'flexRadioDefault' => $faker->randomElement(['C','E']),
             '_token' => csrf_token()
-        ]);*/
-        $this->seeInDataBase('users', ['email'=> $email]);
+        ]);
+        $this->seeInDataBase('users', ['email'=> $email]);*/
         $this->assertTrue(true);
     }
 
